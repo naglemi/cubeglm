@@ -1,4 +1,4 @@
-def read_fit_spectra(spectral_library_path, wavelengths, plot=False, spectra_noise_threshold = 0.01):
+def read_fit_spectra(wavelengths, plot=False, spectra_noise_threshold = 0.01):
     
     numpy2ri.activate()
 
@@ -34,7 +34,8 @@ def read_fit_spectra(spectral_library_path, wavelengths, plot=False, spectra_noi
         
     return(scaled_emission_spectra)
 
-def build_X(fluorophore_ID_vector, intercept, wavelengths,
+def build_X(fluorophore_ID_vector, spectral_library_path, 
+            intercept, wavelengths,
             min_desired_wavelength, max_desired_wavelength):  
     
     for i in range(0, (len(fluorophore_ID_vector))):
