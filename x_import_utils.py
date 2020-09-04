@@ -1,4 +1,4 @@
-def read_fit_spectra(spectra_path, wavelengths, plot=False, spectra_noise_threshold = 0.01):
+def read_fit_spectra(spectral_library_path, wavelengths, plot=False, spectra_noise_threshold = 0.01):
     
     numpy2ri.activate()
 
