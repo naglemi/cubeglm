@@ -35,6 +35,7 @@ def read_fit_spectra(spectra_path, wavelengths, plot=False, spectra_noise_thresh
     return(scaled_emission_spectra)
 
 def find_desired_indices(wavelengths, min_desired_wavelength, max_desired_wavelength):
+    wavelengths = np.asarray(wavelengths)
     # https://stackoverflow.com/questions/13869173/numpy-find-index-of-the-elements-within-range
     wavelength_indices_desired = np.where(np.logical_and(wavelengths.astype(float)>=min_desired_wavelength,
                                                           wavelengths.astype(float)<=max_desired_wavelength))
@@ -67,7 +68,7 @@ def build_X(fluorophore_ID_vector, spectral_library_path,
             # https://stackoverflow.com/questions/43961585/cbind-r-function-equivalent-in-numpy
             mm = np.c_[mm, np.array(spectra['intensity'])] 
 
-    wavelengths = np.asarray(wavelengths)
+
     
 
     wavelength_indices_desired = find_desired_indices(wavelengths, min_desired_wavelength, max_desired_wavelength)
