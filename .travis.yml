@@ -1,8 +1,18 @@
 language: python
-rvm:
+python:
  - 3.7.4
- - numpy
- - pandas
- - spectral
- - rpy2
- - matplotlib
+before_install:
+  - python --version
+  - pip install -U pip
+  - pip install -U pytest
+  - pip install codecov
+  - pip install numpy
+  - pip install pandas
+  - pip install spectral
+  - pip install rpy2
+  - pip install matplotlib
+install:
+  - pip install ".[test]" . # install package + test dependencies
+script: pytest # run tests
+after_success:
+  - codecov # submit coverage
