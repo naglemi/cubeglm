@@ -1,6 +1,5 @@
 numpy
 pandas
 spectral
-glob
 rpy2
 matplotlib
