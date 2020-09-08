@@ -1,0 +1,8 @@
+language: python
+rvm:
+ - 3.7.4
+ - numpy
+ - pandas
+ - spectral
+ - rpy2
+ - matplotlib
