@@ -1,8 +1,5 @@
 class XMatrix:
     """A design matrix for multiple linear regression, with effect and observation labels
-    fluorophore_ID_vector, spectral_library_path,
-                 intercept, wavelengths,
-                 min_desired_wavelength, max_desired_wavelength
                  
     :param fluorophore_ID_vector: A list of spectral components in the spectral library
     :param spectral_library_path: A string indicating the directory where spectra can be found
