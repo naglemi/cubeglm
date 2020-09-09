@@ -1,5 +1,5 @@
 from gmodetector_py import XMatrix
-
+from gmodetector_py import read_wavelengths
 
 def test_XMatrix():
     wavelengths = read_wavelengths('tests/example.hdr')
@@ -9,6 +9,5 @@ def test_XMatrix():
                           wavelengths = wavelengths,
                           min_desired_wavelength = 550,
                           max_desired_wavelength = 600)
-    
-    assert len(test_matrix.wavelengths) == test_matrix.matrix.shape[0]
 
+    assert len(test_matrix.wavelengths) == test_matrix.matrix.shape[0]
