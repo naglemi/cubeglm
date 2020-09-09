@@ -1,3 +1,5 @@
+import numpy as np
+
 class XMatrix:
     """A design matrix for multiple linear regression, with effect and observation labels
                  
