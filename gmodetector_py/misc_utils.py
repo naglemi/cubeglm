@@ -1,3 +1,5 @@
+import numpy as np
+
 def read_wavelengths(file_path):
     """ Obtain a list of wavelengths for which hyperspectral data has been collected and stored in the input header file 
     

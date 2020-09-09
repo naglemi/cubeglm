@@ -1,3 +1,15 @@
+import numpy as np
+import os
+import spectral.io.envi as envi
+import glob
+from rpy2.robjects.packages import importr
+stats=importr('stats')
+scales=importr('scales')
+
+import rpy2.robjects as ro
+from rpy2.robjects.conversion import localconverter
+from rpy2.robjects import pandas2ri
+
 def read_fit_spectra(spectra_path, wavelengths, plot=False, spectra_noise_threshold = 0.01):
     """Read a published spectra and fit to wavelengths and range of hyperspectral camera
 
