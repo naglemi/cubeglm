@@ -7,6 +7,7 @@ def test_XMatrix():
                           spectral_library_path = 'spectral_library/',
                           intercept = 1,
                           wavelengths = wavelengths,
+                          spectra_noise_threshold = 0.01,
                           min_desired_wavelength = 550,
                           max_desired_wavelength = 600)
 
