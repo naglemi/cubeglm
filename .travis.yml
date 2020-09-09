@@ -11,7 +11,7 @@ before_install:
   - pip install spectral
   - pip install rpy2
   - pip install matplotlib
-  - sudo apt -y install r-base
+  - sudo apt-get -y install r-base
   - wget https://cran.r-project.org/src/contrib/scales_1.1.1.tar.gz
   - R CMD INSTALL scales_1.1.1.tar.gz
 install:
