@@ -1,8 +1,5 @@
 class XMatrix:
     """A design matrix for multiple linear regression, with effect and observation labels
-    fluorophore_ID_vector, spectral_library_path,
-                 intercept, wavelengths,
-                 min_desired_wavelength, max_desired_wavelength
                  
     :param fluorophore_ID_vector: A list of spectral components in the spectral library
     :param spectral_library_path: A string indicating the directory where spectra can be found
@@ -59,7 +56,7 @@ class XMatrix:
         plt.ylabel("Signal intensity (normalized)")
     
     def __init__(self, fluorophore_ID_vector, spectral_library_path,
-                 intercept, wavelengths, spectra_noise_threshold
+                 intercept, wavelengths, spectra_noise_threshold,
                  min_desired_wavelength, max_desired_wavelength):
         # Define attribute with contents of the value param
         

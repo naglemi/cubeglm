@@ -6,7 +6,7 @@ def test_XMatrix():
     test_matrix = XMatrix(fluorophore_ID_vector = ['DsRed', 'ZsYellow', 'Chl', 'Diffraction'],
                           spectral_library_path = 'spectral_library/',
                           intercept = 1,
-                          wavelengths = wavelengths
+                          wavelengths = wavelengths,
                           min_desired_wavelength = 550,
                           max_desired_wavelength = 600)
     
