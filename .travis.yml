@@ -17,9 +17,10 @@ install:
   - conda config --add channels r
   # Useful for debugging any issues with conda
   - conda info -a
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pytest codecov numpy pandas spectral rpy2 matplotlib
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pytest codecov numpy pandas rpy2 matplotlib
   - source activate test-environment
   - python --version
+  - pip install spectral
   - R --version
   - echo "install.packages('scales')" > R_scales_install.R
   - chmod ugo+rwx R_scales_install.R
