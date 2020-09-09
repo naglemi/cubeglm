@@ -56,7 +56,7 @@ class XMatrix:
         plt.ylabel("Signal intensity (normalized)")
     
     def __init__(self, fluorophore_ID_vector, spectral_library_path,
-                 intercept, wavelengths, spectra_noise_threshold
+                 intercept, wavelengths, spectra_noise_threshold,
                  min_desired_wavelength, max_desired_wavelength):
         # Define attribute with contents of the value param
         
