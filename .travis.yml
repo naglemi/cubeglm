@@ -13,7 +13,7 @@ before_install:
   - pip install matplotlib
   - sudo apt-get -y install r-base
   - wget https://cran.r-project.org/src/contrib/scales_1.1.1.tar.gz
-  - R CMD INSTALL scales_1.1.1.tar.gz
+  - sudo R CMD INSTALL scales_1.1.1.tar.gz
 install:
   - pip install ".[test]" . # install package + test dependencies
 script: pytest # run tests
