@@ -3,6 +3,7 @@ import os
 import spectral.io.envi as envi
 import glob
 from rpy2.robjects.packages import importr
+from rpy2.robjects import numpy2ri
 stats=importr('stats')
 scales=importr('scales')
 
