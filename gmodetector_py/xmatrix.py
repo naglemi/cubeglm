@@ -1,5 +1,6 @@
 import numpy as np
 from gmodetector_py import build_X
+from gmodetector_py import find_desired_indices
 
 class XMatrix:
     """A design matrix for multiple linear regression, with effect and observation labels
