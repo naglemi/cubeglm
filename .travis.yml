@@ -21,6 +21,7 @@ install:
   - source activate test-environment
   - python --version
   - pip install spectral
+  - sudo apt-get install -y r-base
   - pip install rpy2
   - R --version
   - echo "install.packages('scales')" > R_scales_install.R
