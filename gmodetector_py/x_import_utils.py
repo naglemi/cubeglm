@@ -1,3 +1,5 @@
+from gmodetector_py import find_desired_indices
+
 import numpy as np
 import pandas as pd
 import os
@@ -53,12 +55,12 @@ def read_fit_spectra(spectra_path, wavelengths, plot=False, spectra_noise_thresh
         print('Plotting not supported here yet.')
 
     numpy2ri.deactivate()
-        
+
     return(scaled_emission_spectra)
 
 def build_X(fluorophore_ID_vector, spectral_library_path,
             intercept, wavelengths, spectra_noise_threshold,
-            min_desired_wavelength, max_desired_wavelength):  
+            min_desired_wavelength, max_desired_wavelength):
     """Build an X matrix of spectral components (and intercept) to be used for regression, with individual calls to read_fit_spectra for each component (and intercept) and combination, formatting of results.
 
     :param fluorophore_ID_vector: A list of spectral components in the spectral library
@@ -85,17 +87,17 @@ def build_X(fluorophore_ID_vector, spectral_library_path,
         if(i==0 and intercept==1):
             intercept_vector = [1] * len(wavelengths)
             # https://stackoverflow.com/questions/43961585/cbind-r-function-equivalent-in-numpy
-            mm = np.c_[(intercept_vector, np.asarray(spectra['intensity']))] 
+            mm = np.c_[(intercept_vector, np.asarray(spectra['intensity']))]
 
         if(i==0 and intercept==0):
             mm = np.array(spectra['intensity'])
 
         if(i>0):
             # https://stackoverflow.com/questions/43961585/cbind-r-function-equivalent-in-numpy
-            mm = np.c_[mm, np.array(spectra['intensity'])] 
+            mm = np.c_[mm, np.array(spectra['intensity'])]
 
     #wavelengths = np.asarray(wavelengths)
-    
+
     # https://stackoverflow.com/questions/13869173/numpy-find-index-of-the-elements-within-range
     #wavelength_indices_desired = np.where(np.logical_and(wavelengths.astype(float)>=min_desired_wavelength,
     #                                                     wavelengths.astype(float)<=max_desired_wavelength))
@@ -103,7 +105,5 @@ def build_X(fluorophore_ID_vector, spectral_library_path,
     wavelength_indices_desired = find_desired_indices(wavelengths = wavelengths,
                                                       min_desired_wavelength = min_desired_wavelength,
                                                       max_desired_wavelength = max_desired_wavelength)
-    
+
     return(mm[wavelength_indices_desired,])
-    
-    
