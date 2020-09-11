@@ -1,3 +1,5 @@
+from gmodetector_py import find_desired_indices
+
 import numpy as np
 import pandas as pd
 import os

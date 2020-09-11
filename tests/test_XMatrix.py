@@ -1,6 +1,5 @@
 from gmodetector_py import XMatrix
 from gmodetector_py import read_wavelengths
-from gmodetector_py import build_X
 
 def test_XMatrix():
     wavelengths = read_wavelengths('tests/example.hdr')
