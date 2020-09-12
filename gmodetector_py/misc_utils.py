@@ -1,6 +1,3 @@
-import numpy as np
-import spectral.io.envi as envi
-
 def read_wavelengths(file_path):
     """ Obtain a list of wavelengths for which hyperspectral data has been collected and stored in the input header file 
     
@@ -10,6 +7,7 @@ def read_wavelengths(file_path):
     
     
     """
+    import spectral.io.envi as envi
     h = envi.read_envi_header(file_path)
     wavelengths = h['wavelength']
     return(wavelengths)
@@ -27,6 +25,7 @@ def find_desired_indices(wavelengths, min_desired_wavelength, max_desired_wavele
     [2, 3, 4]
     
     """
+    import numpy as np
     wavelengths = np.asarray(wavelengths)
     # https://stackoverflow.com/questions/13869173/numpy-find-index-of-the-elements-within-range
     wavelength_indices_desired = np.where(np.logical_and(wavelengths.astype(float)>=min_desired_wavelength,

@@ -11,4 +11,6 @@ def test_XMatrix():
                           min_desired_wavelength = 550,
                           max_desired_wavelength = 600)
 
-    assert len(test_matrix.wavelengths) == test_matrix.matrix.shape[0]
+    print("Shape of test matrix is... ")
+    print(test_matrix.matrix.shape)
+    assert len(test_matrix.wavelengths) == test_matrix.matrix.shape[1]

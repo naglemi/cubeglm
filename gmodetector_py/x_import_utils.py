@@ -1,5 +1,3 @@
-from gmodetector_py import find_desired_indices
-
 import numpy as np
 import pandas as pd
 import os
@@ -73,6 +71,7 @@ def build_X(fluorophore_ID_vector, spectral_library_path,
     ...
     :return: An X matrix for running multiple linear regression, with a column for each fluorophore (and the intercept, if applicable)
     """
+    from gmodetector_py import find_desired_indices
     for i in range(0, (len(fluorophore_ID_vector))):
         print(i)
         path = (spectral_library_path + str(fluorophore_ID_vector[i]) + ".csv")
