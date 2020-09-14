@@ -13,4 +13,4 @@ def test_XMatrix():
 
     print("Shape of test matrix is... ")
     print(test_matrix.matrix.shape)
-    assert len(test_matrix.wavelengths) == test_matrix.matrix.shape[1]
+    assert len(test_matrix.wavelengths) == test_matrix.matrix.shape[0]

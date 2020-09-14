@@ -105,4 +105,4 @@ def build_X(fluorophore_ID_vector, spectral_library_path,
                                                       min_desired_wavelength = min_desired_wavelength,
                                                       max_desired_wavelength = max_desired_wavelength)
 
-    return(mm[wavelength_indices_desired,])
+    return(np.squeeze(mm[wavelength_indices_desired,]))
