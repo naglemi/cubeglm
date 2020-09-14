@@ -18,8 +18,9 @@ class XMatrix:
     :ivar matrix: contains the X matrix itself, trimmed to wavelengths for desired range, with one column for each component (and another for the intercept, if applicable)
     """
 
-    def _nan_to_zero(self):
-        return(np.nan_to_num(self.matrix))
+    # Removed because we want this to be behavior all the time, not an option...
+    #def _nan_to_zero(self):
+    #    return(np.nan_to_num(self.matrix))
 
     def _plot(self, tick_step = np.int(50)):
         # style
@@ -68,13 +69,13 @@ class XMatrix:
             components = fluorophore_ID_vector.copy()
             components.insert(0, "Intercept")
 
-        self.matrix = build_X(fluorophore_ID_vector = fluorophore_ID_vector,
-                                             spectral_library_path = spectral_library_path,
-                                             intercept = intercept,
-                                             wavelengths = wavelengths,
-                                             spectra_noise_threshold = spectra_noise_threshold,
-                                             min_desired_wavelength = min_desired_wavelength,
-                                             max_desired_wavelength = max_desired_wavelength)
+        self.matrix = np.nan_to_num(build_X(fluorophore_ID_vector = fluorophore_ID_vector,
+                                            spectral_library_path = spectral_library_path,
+                                            intercept = intercept,
+                                            wavelengths = wavelengths,
+                                            spectra_noise_threshold = spectra_noise_threshold,
+                                            min_desired_wavelength = min_desired_wavelength,
+                                            max_desired_wavelength = max_desired_wavelength))
         self.wavelengths = np.asarray(wavelengths)[find_desired_indices(wavelengths,
                                                             min_desired_wavelength,
                                                             max_desired_wavelength)]

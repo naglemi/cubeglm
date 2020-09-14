@@ -1,3 +1,8 @@
+import numpy as np
+import spectral.io.envi as envi
+from gmodetector_py import read_wavelengths
+from gmodetector_py import find_desired_indices
+
 class Hypercube:
     """A 3D hypercube containing spectra for each pixel
     
@@ -16,5 +21,5 @@ class Hypercube:
         subset_indices = find_desired_indices(all_wavelengths, min_desired_wavelength, max_desired_wavelength)
         subset_wavelengths = np.array(all_wavelengths)[subset_indices[0]]
         
-        self.hypercube = test_cube.hypercube.read_bands(bands=subset_indices[0])
+        self.hypercube = envi.open(file_path).read_bands(bands=subset_indices[0])
         self.wavelengths = subset_wavelengths

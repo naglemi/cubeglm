@@ -1,7 +1,8 @@
 from setuptools import setup
+from ._version import __version__
 
 setup(name='gmodetector_py',
-      version='0.0.1',
+      version=__version__,
       description='Quantification of fluorescent proteins in hyperspectral images by regression',
       author='Michael Nagle',
       author_email='michael.nagle@oregonstate.edu',
