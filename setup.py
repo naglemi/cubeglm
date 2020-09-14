@@ -1,5 +1,5 @@
 from setuptools import setup
-from ._version import __version__
+exec(open('gmodetector_py/version.py').read())
 
 setup(name='gmodetector_py',
       version=__version__,

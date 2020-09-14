@@ -1,4 +1,4 @@
-from ._version import __version__
+from .version import __version__
 from .x_import_utils import read_fit_spectra
 from .x_import_utils import build_X
 from .misc_utils import read_wavelengths
