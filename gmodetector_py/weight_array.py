@@ -9,7 +9,6 @@ class WeightArray:
     :ivar weights: 3D array containing weight values
     :ivar components: A list of spectral components (including intercept if applicable) – contains the contents of ``fluorophore_ID_vector`` passed through``test_matrix.components``
 
-
     """
 
     def __init__(self, test_matrix, test_cube):
