@@ -7,6 +7,8 @@ class WeightArray:
     :param test_cube: An object of class Hypercube (containing spectra for each pixel)
     :ivar wavelengths: contains the contents of ``wavelengths`` passed from ``test_matrix`` and ``test_cube`` (must be same, or will yield error)
     :ivar weights: 3D array containing weight values
+    :ivar components: A list of spectral components (including intercept if applicable) – contains the contents of ``fluorophore_ID_vector`` passed through``test_matrix.components``
+
 
     """
 
@@ -18,3 +20,4 @@ class WeightArray:
         self.wavelengths = test_matrix.wavelengths
         self.weights = regress(test_matrix = test_matrix,
                                test_cube = test_cube)
+        self.components = text_matrix.components
