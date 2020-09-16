@@ -23,6 +23,7 @@ class XMatrix:
     #    return(np.nan_to_num(self.matrix))
 
     def _plot(self, tick_step = np.int(50)):
+        import matplotlib.pyplot as plt
         # style
         plt.style.use('seaborn-darkgrid')
 
