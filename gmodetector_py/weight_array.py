@@ -12,6 +12,16 @@ class WeightArray:
 
     """
 
+    def plot(self, desired_wavelength, color, cap):
+        index_of_desired_channel = find_desired_channel(self.components,
+                                                        desired_wavelength)
+        Weights_desired_peak_channel = slice_desired_channel(self.weights,
+                                                             index_of_desired_channel)
+        plot_out = CLS_to_image(CLS_matrix = Weights_desired_peak_channel,
+                                cap = cap, mode = 'opaque',
+                                match_size=False, color=color)
+        return(plot_out)
+
     def __init__(self, test_matrix, test_cube):
 
         if test_matrix.wavelengths.astype(np.float).all() != test_cube.wavelengths.astype(np.float).all():
