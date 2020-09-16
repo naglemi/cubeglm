@@ -20,4 +20,4 @@ class WeightArray:
         self.wavelengths = test_matrix.wavelengths
         self.weights = regress(test_matrix = test_matrix,
                                test_cube = test_cube)
-        self.components = text_matrix.components
+        self.components = test_matrix.components
