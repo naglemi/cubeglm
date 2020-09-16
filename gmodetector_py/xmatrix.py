@@ -24,6 +24,7 @@ class XMatrix:
 
     def _plot(self, tick_step = np.int(50)):
         import matplotlib.pyplot as plt
+        import pandas as pd
         # style
         plt.style.use('seaborn-darkgrid')
 
