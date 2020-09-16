@@ -4,6 +4,9 @@ from .x_import_utils import build_X
 from .misc_utils import read_wavelengths
 from .misc_utils import find_desired_indices
 from .regression_utils import regress
+from .plot_utils import find_desired_channel
+from .plot_utils import slice_desired_channel
+from .plot_utils import CLS_to_image
 from .hypercube import Hypercube
 from .xmatrix import XMatrix
 from .weight_array import WeightArray
