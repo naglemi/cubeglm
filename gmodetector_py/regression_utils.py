@@ -12,7 +12,7 @@ def regress(test_matrix, test_cube):
     #                                    test_cube.hypercube.shape[0] * test_cube.hypercube.shape[1])
     b_vec = test_cube.hypercube.transpose(2,0,1).reshape(test_cube.hypercube.shape[2], -1)
     m_vec = np.matmul(MP_pseudoinverse, b_vec)
-    m_vec = m_vec.reshape(test_cube.hypercube.shape[0],
+    m_vec = m_vec.reshape((test_cube.hypercube.shape[0],
                           test_cube.hypercube.shape[1],
-                          len(test_matrix.components))
+                          len(test_matrix.components)))
     return(m_vec)
