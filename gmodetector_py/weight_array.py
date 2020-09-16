@@ -1,4 +1,5 @@
 from gmodetector_py import regress
+import numpy as np
 
 class WeightArray:
     """A 3D array containing weights for each spectral component, obtained by regression of hybercube onto design matrix
