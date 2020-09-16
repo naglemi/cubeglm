@@ -12,13 +12,13 @@ class WeightArray:
 
     """
 
-    def plot(self, desired_wavelength, color, cap):
+    def plot(self, desired_component, color, cap):
         from gmodetector_py import find_desired_channel
         from gmodetector_py import slice_desired_channel
         from gmodetector_py import CLS_to_image
 
         index_of_desired_channel = find_desired_channel(self.components,
-                                                        desired_wavelength)
+                                                        desired_component)
         Weights_desired_peak_channel = slice_desired_channel(self.weights,
                                                              index_of_desired_channel)
         plot_out = CLS_to_image(CLS_matrix = Weights_desired_peak_channel,
