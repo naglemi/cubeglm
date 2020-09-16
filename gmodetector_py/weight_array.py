@@ -1,5 +1,8 @@
 from gmodetector_py import regress
 import numpy as np
+from gmodetector_py import find_desired_channel
+from gmodetector_py import slice_desired_channel
+from gmodetector_py import CLS_to_image
 
 class WeightArray:
     """A 3D array containing weights for each spectral component, obtained by regression of hybercube onto design matrix
@@ -13,10 +16,6 @@ class WeightArray:
     """
 
     def plot(self, desired_component, color, cap):
-        from gmodetector_py import find_desired_channel
-        from gmodetector_py import slice_desired_channel
-        from gmodetector_py import CLS_to_image
-
         index_of_desired_channel = find_desired_channel(self.components,
                                                         desired_component)
         Weights_desired_peak_channel = slice_desired_channel(self.weights,

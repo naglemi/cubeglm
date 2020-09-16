@@ -2,6 +2,9 @@ import numpy as np
 import spectral.io.envi as envi
 from gmodetector_py import read_wavelengths
 from gmodetector_py import find_desired_indices
+from gmodetector_py import find_desired_channel
+from gmodetector_py import slice_desired_channel
+from gmodetector_py import CLS_to_image
 
 class Hypercube:
     """A 3D hypercube containing spectra for each pixel
@@ -15,10 +18,6 @@ class Hypercube:
     """
 
     def plot(self, desired_wavelength, color, cap):
-        from gmodetector_py import find_desired_channel
-        from gmodetector_py import slice_desired_channel
-        from gmodetector_py import CLS_to_image
-
         index_of_desired_channel = find_desired_channel(self.wavelengths,
                                                         desired_wavelength)
         Hypercube_desired_peak_channel = slice_desired_channel(self.hypercube,
