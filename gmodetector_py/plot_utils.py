@@ -24,6 +24,7 @@ def slice_desired_channel(array, desired_channel):
 
 def CLS_to_image(CLS_matrix, cap, mode = 'opaque', match_size=False, color='white'):
     from PIL import Image
+    import numpy as np
     # Usage:
     # image_out = CLS_to_image(CLS_matrix = load_CLS_layer(CLS_path = samples['CLS_data'][15],
     #                                                 layer = 'DsRed'),
