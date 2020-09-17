@@ -18,6 +18,12 @@ class Hypercube:
     """
 
     def plot(self, desired_wavelength, color, cap):
+        """Plot a single channel selected from a hyperspectral image
+
+        :param desired_wavelength: A string exactly equal to the wavelength of the band to be plotted
+        :param color: A string equal to 'red', 'blue', or 'green' – the color that the extracted band will be plotted in
+        :param cap: A numeric value of the spectral intensity value that will have maximum brightness in the plot. All with greater intensity will have the same level of brightness. Think of this as image exposure on a camera.
+        """
         index_of_desired_channel = find_desired_channel(self.wavelengths,
                                                         desired_wavelength)
         Hypercube_desired_peak_channel = slice_desired_channel(self.hypercube,

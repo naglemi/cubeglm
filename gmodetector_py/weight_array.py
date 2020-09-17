@@ -16,6 +16,13 @@ class WeightArray:
     """
 
     def plot(self, desired_component, color, cap):
+        """Plot a single channel selected from a weight array produced by regression
+
+                :param desired_component: A string matching the ID of the component to be plotted (e.g. 'GFP')
+                :param color: A string equal to 'red', 'blue', or 'green' – the color that the extracted band will be plotted in
+                :param cap: A numeric value of the spectral intensity value that will have maximum brightness in the plot. All with greater intensity will have the same level of brightness. Think of this as image exposure on a camera.
+
+        """
         index_of_desired_channel = find_desired_channel(self.components,
                                                         desired_component)
         Weights_desired_peak_channel = slice_desired_channel(self.weights,
