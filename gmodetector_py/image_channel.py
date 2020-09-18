@@ -13,7 +13,19 @@ class ImageChannel:
     """
     def __init__(self,
     desired_component_or_wavelength, color, cap,
-    mode, weight_array = None, hypercube = None):
+    weight_array = None, hypercube = None):
+
+        if weight_array is None and hypercube is None:
+            raise Exception('No WeightArray or Hypercube has been passed for false color plotting.')
+
+        if weight_array is not None and hypercube is not None:
+            raise Exception('Both a WeightArray and Hypercube have been passed for false color plotting. Please plot one at a time.')
+
+        if weight_array is not None:
+            mode == 'weights'
+        if hypercube is not None:
+            mode == 'hypercube'
+
         if mode == 'weights':
             image = weight_array.plot(desired_component = desired_component_or_wavelength,
             color = color, cap = cap)
