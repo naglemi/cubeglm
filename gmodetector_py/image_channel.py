@@ -1,5 +1,3 @@
-from gmodetector_py import plot
-
 class ImageChannel:
     """A single channel plotted either a hybercube, or from a weight array produced by regression
 
