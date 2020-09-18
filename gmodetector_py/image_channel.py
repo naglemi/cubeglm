@@ -11,9 +11,9 @@ class ImageChannel:
     :ivar image: An image channel stored as a ``PIL.Image`` object, produced by the ``plot`` method of either ``Hypercube`` or ``WeightArray``)
 
     """
-    def __init__(self, weight_array = None, hypercube = None,
+    def __init__(self,
     desired_component_or_wavelength, color, cap,
-    mode):
+    mode, weight_array = None, hypercube = None):
         if mode == 'weights':
             image = weight_array.plot(desired_component = desired_component_or_wavelength,
             color = color, cap = cap)
