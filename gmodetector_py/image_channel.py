@@ -22,9 +22,9 @@ class ImageChannel:
             raise Exception('Both a WeightArray and Hypercube have been passed for false color plotting. Please plot one at a time.')
 
         if weight_array is not None:
-            mode == 'weights'
+            mode = 'weights'
         if hypercube is not None:
-            mode == 'hypercube'
+            mode = 'hypercube'
 
         if mode == 'weights':
             image = weight_array.plot(desired_component = desired_component_or_wavelength,
