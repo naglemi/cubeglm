@@ -11,6 +11,9 @@ from .hypercube import Hypercube
 from .xmatrix import XMatrix
 from .weight_array import WeightArray
 from .image_channel import ImageChannel
+from .false_color import FalseColor
+from .plot_utils import checkIfDuplicates_l
+from .plot_utils import stack_images
 
 # By importing these in __init__.py we make them available to the user
 # If we import these functions in the __init__ file, all the user
