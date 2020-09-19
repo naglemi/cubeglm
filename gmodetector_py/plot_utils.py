@@ -63,3 +63,24 @@ def CLS_to_image(CLS_matrix, cap, mode = 'opaque', match_size=False, color='whit
     #    img = img.crop((0, 0, rgb.size[0], rgb.size[1]))
 
     return(img)
+
+def images_to_arrays(images):
+    from numpy import asarray
+    images_as_arrays = (asarray(image) for image in images)
+    return(images_as_arrays)
+
+def stack_images(images):
+    from PIL import Image
+    images_as_arrays = images_to_arrays(images)
+    stacked_image = sum(images_as_arrays)
+    stacked_image = Image.fromarray(stacked_image)
+    return(stacked_image)
+
+def checkIfDuplicates_l(listOfElems):
+    ''' Check if given list contains any duplicates '''
+    # Thank you Varun for this function
+    # https://thispointer.com/python-3-ways-to-check-if-there-are-duplicates-in-a-list/
+    if len(listOfElems) == len(set(listOfElems)):
+        return False
+    else:
+        return True
