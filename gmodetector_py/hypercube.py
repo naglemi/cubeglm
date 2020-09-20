@@ -1,5 +1,5 @@
 import numpy as np
-import spectral.io.envi as envi
+import spectral as spy
 from gmodetector_py import read_wavelengths
 from gmodetector_py import find_desired_indices
 from gmodetector_py import find_desired_channel
@@ -39,8 +39,7 @@ class Hypercube:
         all_wavelengths = read_wavelengths(file_path)
         subset_indices = find_desired_indices(all_wavelengths, min_desired_wavelength, max_desired_wavelength)
         subset_wavelengths = np.array(all_wavelengths)[subset_indices[0]]
-        import spectral.settings as settings
-        settings.envi_support_nonlowercase_params = True
-        self.hypercube = envi.open(file_path).read_bands(bands=subset_indices[0],
+        spy.settings.envi_support_nonlowercase_params = True
+        self.hypercube = spy.io.envi.open(file_path).read_bands(bands=subset_indices[0],
         use_memmap = False)
         self.wavelengths = subset_wavelengths
