@@ -26,7 +26,7 @@ class FalseColor:
         print('Saving image metadata to ' + metadata_path)
     
         metadata.to_csv(metadata_path)
-        false_color.image(image_path)
+        self.image(image_path)
     
     def __init__(self, inputs):
 
