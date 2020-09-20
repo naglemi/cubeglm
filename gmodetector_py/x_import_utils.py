@@ -45,10 +45,8 @@ def read_fit_spectra(spectra_path, wavelengths, plot=False, spectra_noise_thresh
     scaled_emission_spectra = pd.DataFrame(scaled_emission_spectra)
 
     # Denoise
-    print(scaled_emission_spectra.head())
-    print(spectra_noise_threshold)
     scaled_emission_spectra.loc[scaled_emission_spectra['intensity'] < spectra_noise_threshold, 'intensity'] = 0
-    print(scaled_emission_spectra.head())
+
     if plot == True:
         print('Plotting not supported here yet.')
 

@@ -39,6 +39,7 @@ class Hypercube:
         all_wavelengths = read_wavelengths(file_path)
         subset_indices = find_desired_indices(all_wavelengths, min_desired_wavelength, max_desired_wavelength)
         subset_wavelengths = np.array(all_wavelengths)[subset_indices[0]]
-
-        self.hypercube = envi.open(file_path).read_bands(bands=subset_indices[0])
+        spectral.settings.envi_support_nonlowercase_params = True
+        self.hypercube = envi.open(file_path).read_bands(bands=subset_indices[0],
+        use_memmap = False)
         self.wavelengths = subset_wavelengths
