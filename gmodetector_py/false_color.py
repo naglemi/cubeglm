@@ -12,6 +12,22 @@ class FalseColor:
 
     """
 
+    def save(self, path_prefix):
+        import pandas as pd
+        metadata = pd.DataFrame(zip(self.IDs,
+                                    self.colors,
+                                    self.caps),
+                                columns = ['Channel', 'Color', 'Cap'])
+        
+        metadata_path = path_prefix + ".csv"
+        image_path = path_prefix + ".png"
+    
+        print('Saving image to ' + image_path)
+        print('Saving image metadata to ' + metadata_path)
+    
+        metadata.to_csv(metadata_path)
+        false_color.image(image_path)
+    
     def __init__(self, inputs):
 
         # Thank you Reto Aebersold for showing how to obtain a list of attributes for a list of objects
