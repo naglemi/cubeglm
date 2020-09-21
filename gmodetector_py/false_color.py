@@ -50,4 +50,4 @@ class FalseColor:
         self.colors = colors
         self.caps = caps
         self.image = stacked_image
-        self.source = set(sources)
+        self.source = sources[0]
