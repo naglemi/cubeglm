@@ -21,7 +21,7 @@ class WeightArray:
             if i == 0:
                 # Thank you 英文原文 for explaining conversion of matrix to triplet form with numpy http://www.javaear.com/question/30478758.html
                 I, J = np.indices(self.weights.shape[0:2])
-                array_in_coordinate = pd.DataFrame(np.column_stack(ar.ravel() for ar in (I, J, self.weights[:, :, i]))
+                array_in_coordinate = pd.DataFrame(np.column_stack(ar.ravel() for ar in (I, J, self.weights[:, :, i])))
             if i > 0:
                 matrix_slice_in_triplet = np.column_stack(ar.ravel() for ar in (I, J, self.weights[:, :, i]))
                 array_in_coordinate = pd.concat([array_in_coordinate,
