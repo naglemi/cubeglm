@@ -26,6 +26,8 @@ class WeightArray:
                 array_in_coordinate = np.c_[array_in_coordinate, matrix_slice_in_triplet[:, 2]]
                 print('array shape is...')
                 print(array_in_coordinate.shape)
+                print('head row of array is...')
+                print(array_in_coordinate[:1])
         array_in_coordinate = pd.DataFrame(array_in_coordinate,
         columns = ['rows', 'cols'] + self.components)
         array_in_coordinate.to_csv(path)
