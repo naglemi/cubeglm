@@ -1,13 +1,14 @@
 class ImageChannel:
     """A single channel plotted either a hybercube, or from a weight array produced by regression
 
-    :param desired_component: A string matching the ID of the component to be plotted (e.g. 'GFP')
+    :param desired_component_or_wavelength: A string matching the ID of the channel (component/wavelength) to be plotted (e.g. 'GFP')
     :param color: A string equal to 'red', 'blue', or 'green' – the color that the extracted band will be plotted in
     :param cap: A numeric value of the spectral intensity value that will have maximum brightness in the plot. All with greater intensity will have the same level of brightness. Think of this as image exposure on a camera.
+    :param weight_array: An object of class ``WeightArray``
+    :param hypercube: An object of class ``Hypercube``
     :ivar channel: stores the value passed by the ``desired_component_or_wavelength`` parameter
-    :ivar color: stores the value passed by the ``cap`` parameter
-    :ivar cap: stores the value passed by ``desired_component_or_wavelength``
-    :ivar weights: 3D array containing weight values
+    :ivar color: stores the value passed by the ``color`` parameter
+    :ivar cap: stores the value passed by ``cap``
     :ivar image: An image channel stored as a ``PIL.Image`` object, produced by the ``plot`` method of either ``Hypercube`` or ``WeightArray``)
 
     """
@@ -23,8 +24,10 @@ class ImageChannel:
 
         if weight_array is not None:
             mode = 'weights'
+            source = weight_array.source
         if hypercube is not None:
             mode = 'hypercube'
+            source = hypercube.source
 
         if mode == 'weights':
             image = weight_array.plot(desired_component = desired_component_or_wavelength,
@@ -37,3 +40,4 @@ class ImageChannel:
         self.color = color
         self.cap = cap
         self.image = image
+        self.source = source

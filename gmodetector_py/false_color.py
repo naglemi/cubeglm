@@ -37,6 +37,10 @@ class FalseColor:
         colors = list(x.color for x in inputs)
         caps = list(x.cap for x in inputs)
 
+        sources = list(x.source for x in inputs)
+        if len(set(sources)) > 1:
+            raise Exception('The image channels submitted do not appear to be from the same sample.')
+
         if checkIfDuplicates_l(colors):
             raise Exception('Cannot produce false color image from multiple channels of a single color. The colors must be different for each channel.')
 
@@ -46,3 +50,4 @@ class FalseColor:
         self.colors = colors
         self.caps = caps
         self.image = stacked_image
+        self.source = set(sources)

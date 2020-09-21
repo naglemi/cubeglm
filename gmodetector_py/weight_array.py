@@ -41,3 +41,4 @@ class WeightArray:
         self.weights = regress(test_matrix = test_matrix,
                                test_cube = test_cube)
         self.components = test_matrix.components
+        self.source = test_cube.source
