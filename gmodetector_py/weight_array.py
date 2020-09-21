@@ -20,9 +20,9 @@ class WeightArray:
     def save(self, path):
         for i in range(0, len(self.components)):
             if i == 0:
-                array_in_coordinate = sparse.coo_matrix(self.weights[:, :, i])
+                array_in_coordinate = sparse.coo_matrix(self.weights).tocsr()[:, :, i]
             if i > 0:
-                matrix_slice_in_triplet = sparse.coo_matrix(self.weights[:, :, i])
+                matrix_slice_in_triplet = sparse.coo_matrix(self.weights).tocsr()[:, :, i]
                 array_in_coordinate = np.c_[array_in_coordinate, matrix_slice_in_triplet[:, 2]]
         array_in_coordinate = pd.DataFrame(array_in_coordinate,
         columns = ['rows', 'cols'] + self.components)
