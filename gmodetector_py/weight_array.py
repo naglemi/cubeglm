@@ -33,7 +33,7 @@ class WeightArray:
                 print(array_in_coordinate[:1])
         array_in_coordinate = pd.DataFrame(array_in_coordinate)
         # columns = ['rows', 'cols'] + self.components)
-        array_in_coordinate.to_csv(path)
+        array_in_coordinate.to_csv(path + str('_weights.csv'))
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
