@@ -44,4 +44,4 @@ class Hypercube:
         # spy.settings.envi_support_nonlowercase_params = True # This isn't working here... Warning still appears.
         self.hypercube = spy.io.envi.open(file_path).read_bands(bands=subset_indices[0])
         self.wavelengths = subset_wavelengths
-        self.source = os.path.splitext(ntpath.basename(file_path))
+        self.source = os.path.splitext(ntpath.basename(file_path))[0]
