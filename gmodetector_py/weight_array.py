@@ -24,6 +24,8 @@ class WeightArray:
             if i > 0:
                 matrix_slice_in_triplet = sparse.coo_matrix(self.weights[:, :, i]).tocsr()
                 array_in_coordinate = np.c_[array_in_coordinate, matrix_slice_in_triplet[:, 2]]
+                print('array shape is...')
+                print(array_in_coordinate.shape)
         array_in_coordinate = pd.DataFrame(array_in_coordinate,
         columns = ['rows', 'cols'] + self.components)
         array_in_coordinate.to_csv(path)
