@@ -1,5 +1,7 @@
 from gmodetector_py import regress
 import numpy as np
+import scipy as sp
+import pandas as pd
 from gmodetector_py import find_desired_channel
 from gmodetector_py import slice_desired_channel
 from gmodetector_py import CLS_to_image
@@ -14,6 +16,17 @@ class WeightArray:
     :ivar components: A list of spectral components (including intercept if applicable) – contains the contents of ``fluorophore_ID_vector`` passed through``test_matrix.components``
 
     """
+
+    def save(self, path):
+        for i in 0:len(self.components):
+            if i == 0:
+                array_in_coordinate = sp.sparse.coo_matrix(self.weights[:, :, i])
+            if i > 0:
+                matrix_slice_in_triplet = sp.sparse.coo_matrix(self.weights[:, :, i])
+                array_in_coordinate = np.c_[array_in_coordinate, matrix_slice_in_triplet[:, 2]]
+        array_in_coordinate = pd.DataFrame(array_in_coordinate,
+        columns = ['rows', 'cols'] + self.components)
+        array_in_coordinate.to_csv(path)
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
