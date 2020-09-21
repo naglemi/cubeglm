@@ -1,4 +1,5 @@
 import ntpath # Should work on all platforms for finding basename from file path https://stackoverflow.com/questions/8384737/extract-file-name-from-path-no-matter-what-the-os-path-format/8384786
+import os
 import numpy as np
 import spectral as spy
 
@@ -41,7 +42,6 @@ class Hypercube:
         subset_indices = find_desired_indices(all_wavelengths, min_desired_wavelength, max_desired_wavelength)
         subset_wavelengths = np.array(all_wavelengths)[subset_indices[0]]
         # spy.settings.envi_support_nonlowercase_params = True # This isn't working here... Warning still appears.
-        self.hypercube = spy.io.envi.open(file_path).read_bands(bands=subset_indices[0],
-        use_memmap = False)
+        self.hypercube = spy.io.envi.open(file_path).read_bands(bands=subset_indices[0])
         self.wavelengths = subset_wavelengths
-        self.source = ntpath.basename(file_path)
+        self.source = os.path.splitext(ntpath.basename(file_path))
