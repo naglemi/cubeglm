@@ -18,7 +18,7 @@ class WeightArray:
     """
 
     def save(self, path):
-        for i in 0:len(self.components):
+        for i in range(0, len(self.components)):
             if i == 0:
                 array_in_coordinate = sp.sparse.coo_matrix(self.weights[:, :, i])
             if i > 0:
