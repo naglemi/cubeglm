@@ -25,7 +25,7 @@ class WeightArray:
             if i > 0:
                 matrix_slice_in_triplet = np.column_stack(ar.ravel() for ar in (I, J, self.weights[:, :, i]))
                 array_in_coordinate = pd.concat([array_in_coordinate,
-                pd.DataFrame(matrix_slice_in_triplet[:, 2]], axis = 1)
+                pd.DataFrame(matrix_slice_in_triplet[:, 2])], axis = 1)
                 print('array shape is...')
                 print(array_in_coordinate.shape)
                 print('head row of array is...')
