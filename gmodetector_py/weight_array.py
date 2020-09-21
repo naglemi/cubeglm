@@ -1,6 +1,5 @@
 from gmodetector_py import regress
 import numpy as np
-from scipy import sparse
 import pandas as pd
 from gmodetector_py import find_desired_channel
 from gmodetector_py import slice_desired_channel
@@ -20,9 +19,11 @@ class WeightArray:
     def save(self, path):
         for i in range(0, len(self.components)):
             if i == 0:
-                array_in_coordinate = pd.DataFrame(sparse.coo_matrix(self.weights[:, :, i]))
+                # Thank you 英文原文 for explaining conversion of matrix to triplet form with numpy http://www.javaear.com/question/30478758.html
+                I, J = np.indices(self.weights.shape[0:2])
+                array_in_coordinate = np.column_stack(ar.ravel() for ar in (I, J, self.weights[:, :, i]))
             if i > 0:
-                matrix_slice_in_triplet = pd.DataFrame(sparse.coo_matrix(self.weights[:, :, i]))
+                matrix_slice_in_triplet = np.column_stack(ar.ravel() for ar in (I, J, self.weights[:, :, i]))
                 array_in_coordinate = pd.concat([array_in_coordinate, matrix_slice_in_triplet[:, 2]],
                 axis = 1)
                 print('array shape is...')
