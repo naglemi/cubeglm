@@ -16,15 +16,18 @@ class WeightArray:
 
     """
 
-    def save(self, path):
+    def save(self, path, index_starting_at_one = True):
+        I, J = np.indices(self.weights.shape[0:2])
+        if index_starting_at_one == True:
+            I = I + 1
+            J = J + 1
         for i in range(0, len(self.components)):
             if i == 0:
                 # Thank you 英文原文 for explaining conversion of matrix to triplet form with numpy http://www.javaear.com/question/30478758.html
-                I, J = np.indices(self.weights.shape[0:2])
-                array_in_coordinate = pd.DataFrame(np.column_stack(ar.ravel().tolist() for ar in (I, J, self.weights[:, :, i])),
+                array_in_coordinate = pd.DataFrame(np.column_stack(ar.ravel() for ar in (I, J, self.weights[:, :, i])),
                 columns = ['rows', 'cols', self.components[i]])
             if i > 0:
-                matrix_slice_in_triplet = np.column_stack(ar.ravel().tolist() for ar in (I, J, self.weights[:, :, i]))
+                matrix_slice_in_triplet = np.column_stack(ar.ravel() for ar in (I, J, self.weights[:, :, i]))
                 array_in_coordinate = pd.concat([array_in_coordinate,
                 pd.DataFrame(matrix_slice_in_triplet[:, 2], columns = [self.components[i]])], axis = 1)
                 print('array shape is...')
