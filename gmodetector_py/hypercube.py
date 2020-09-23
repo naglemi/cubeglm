@@ -10,7 +10,7 @@ from gmodetector_py import slice_desired_channel
 from gmodetector_py import CLS_to_image
 
 class Hypercube:
-    """A 3D hypercube containing spectra for each pixel
+    """A 3D hyperspectral image (hypercube) containing spectra for each pixel
 
     :param file_path: A string indicating the path to the header file (in ENVI .hdr format) corresponding to the hyperspectral image file (in ENVI .raw format) to be read in
     :param min_desired_wavelength: A numeric value indicating a threshold BELOW which spectral data is excluded
@@ -19,6 +19,18 @@ class Hypercube:
     :ivar wavelengths: contains the contents of ``wavelengths`` passed as init and subsequently trimmed to desired range
 
     """
+
+    def normalize(self, chroma_hypercube, chroma_width):
+        """ Normalize a hyperspectral image (hypercube) against a standard image
+        :param chroma_hypercube: A ``hypercube`` object for a chroma standard sample, against which the hypercube for a given experimental sample will be normalized
+        :param chroma_width: The number of pixels to be extracted from the center of the chroma standard hypercube, over which the mean for each row will be taken and used for normalizing fluctuations in laser and/or signal intensity
+
+        """
+        chroma_width_start = int((cube_shape[0]/2) - (chroma_width / 2))
+        chroma_width_end = int((cube_shape[0]/2) + (chroma_width / 2))
+        chroma_cut = chroma_hypercube.hypercube[chroma_width_start:chroma_width_end, :, :]
+        mean_vector = np.mean(chroma_cut, axis=0)
+        self.hypercube = self.hypercube/mean_vector
 
     def plot(self, desired_wavelength, color, cap):
         """Plot a single channel selected from a hyperspectral image
