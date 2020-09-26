@@ -16,7 +16,7 @@ class WeightArray:
 
     """
 
-    def save(self, path, index_starting_at_one = True, format = "hdf"):
+    def save(self, path, index_starting_at_one = True, format = "hdf", output_dir = "./"):
         I, J = np.indices(self.weights.shape[0:2])
         if index_starting_at_one == True:
             I = I + 1
@@ -40,10 +40,10 @@ class WeightArray:
         output_path = path + str('_weights.csv')
 
         if format == "csv":
-            array_in_coordinate.to_csv(output_path, index = False)
+            array_in_coordinate.to_csv(output_dir + output_path, index = False)
 
         if format == "hdf":
-            array_in_coordinate.to_hdf(output_path, index = False)
+            array_in_coordinate.to_hdf(output_dir + output_path, index = False)
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
