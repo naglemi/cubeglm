@@ -20,7 +20,7 @@ class Hypercube:
 
     """
 
-    def normalize(self, chroma_hypercube, chroma_width):
+    def normalize(self, chroma_hypercube, chroma_width, rescale = False):
         """ Normalize a hyperspectral image (hypercube) against a standard image
         :param chroma_hypercube: A ``hypercube`` object for a chroma standard sample, against which the hypercube for a given experimental sample will be normalized
         :param chroma_width: The number of pixels to be extracted from the center of the chroma standard hypercube, over which the mean for each row will be taken and used for normalizing fluctuations in laser and/or signal intensity
@@ -31,6 +31,31 @@ class Hypercube:
         chroma_cut = chroma_hypercube.hypercube[chroma_width_start:chroma_width_end, :, :]
         mean_vector = np.mean(chroma_cut, axis=0)
         self.hypercube = self.hypercube/mean_vector
+
+        if rescale = True:
+            #   To find a scaling factor that will bring signals back to their
+            # approximate original scale rather than the proportion of their
+            # signal relative to a chroma standard, take the mean of the
+            # normalization vector yielded from the chroma standard
+            rescale_factor = np.mean(mean_vector)
+            if len(rescale_factor) > 1:
+                raise Exception('Rescale factor must be a single numeric value')
+                self.hypercube = self.hypercube*rescale_factor
+
+    def crop(self, left, top, right, bottom):
+        self.hypercube = self.hypercube[top:bottom, left:right, :]
+
+    def save(self, output_path):
+        metadata_dict = {"bands": self.hypercube.shape[2],
+        "lines": self.hypercube.shape[0],
+        "samples": self.hypercube.shape[1],
+        "data type": 12,
+        "Wavelength": self.wavelengths}
+
+        img = spy.envi.create_image(output_path, metadata_dict, force = True)
+
+        mm = img.open_memmap(writable=True)
+        mm[:] = self.hypercube[:]
 
     def plot(self, desired_wavelength, color, cap):
         """Plot a single channel selected from a hyperspectral image
