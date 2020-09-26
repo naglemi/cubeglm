@@ -2,6 +2,7 @@ import ntpath # Should work on all platforms for finding basename from file path
 import os
 import numpy as np
 import spectral as spy
+import dask
 
 from gmodetector_py import read_wavelengths
 from gmodetector_py import find_desired_indices
@@ -60,8 +61,8 @@ class Hypercube:
         if dask == False:
             self.hypercube = envi_in.read_bands(bands=subset_indices[0])
         if dask == True:
-            import dask
-            self.hypercube = dask.delayed(envi_in.read_bands)(bands=subset_indices[0])
+            #self.hypercube = dask.delayed(envi_in.read_bands)(bands=subset_indices[0])
+            self.hypercube = dask.from_array(envi_in.read_bands)(bands=subset_indices[0])
 
         self.wavelengths = subset_wavelengths
         self.source = os.path.splitext(ntpath.basename(file_path))[0]
