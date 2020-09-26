@@ -30,7 +30,7 @@ def read_fit_spectra(spectra_path, wavelengths, plot=False, spectra_noise_thresh
 
     # Convert pandas object to something R-friendly https://rpy2.github.io/doc/latest/html/pandas.html
     with localconverter(ro.default_converter + ro.pandas2ri.converter):
-        r_from_pd_df = ro.conversion.py2rpy(pub_emission_spectrum) # If not in rpy2=2.9.4 may have error here due to no attribute 'py2rpy'
+        r_from_pd_df = ro.conversion.py2rpy(pub_emission_spectrum) # If not in rpy2>=3.0.5 may have error here due to no attribute 'py2rpy'
 
     # Use rpy2 so we can use loess from R, as in old version, get same exact results
     # Fit
