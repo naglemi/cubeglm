@@ -32,7 +32,7 @@ class Hypercube:
         mean_vector = np.mean(chroma_cut, axis=0)
         self.hypercube = self.hypercube/mean_vector
 
-        if rescale = True:
+        if rescale == True:
             #   To find a scaling factor that will bring signals back to their
             # approximate original scale rather than the proportion of their
             # signal relative to a chroma standard, take the mean of the
