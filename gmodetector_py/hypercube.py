@@ -48,12 +48,20 @@ class Hypercube:
                             match_size=False, color=color)
         return(plot_out)
 
-    def __init__(self, file_path, min_desired_wavelength, max_desired_wavelength):
+    def __init__(self, file_path, min_desired_wavelength, max_desired_wavelength, dask = False):
         # Define attribute with contents of the value param
         all_wavelengths = read_wavelengths(file_path)
         subset_indices = find_desired_indices(all_wavelengths, min_desired_wavelength, max_desired_wavelength)
         subset_wavelengths = np.array(all_wavelengths)[subset_indices[0]]
         # spy.settings.envi_support_nonlowercase_params = True # This isn't working here... Warning still appears.
-        self.hypercube = spy.io.envi.open(file_path).read_bands(bands=subset_indices[0])
+
+        envi_in = spy.io.envi.open(file_path)
+
+        if dask == False:
+            self.hypercube = envi_in.read_bands(bands=subset_indices[0])
+        if dask == True:
+            import dask
+            self.hypercube = dask.delayed(envi_in.read_bands)(bands=subset_indices[0])
+
         self.wavelengths = subset_wavelengths
         self.source = os.path.splitext(ntpath.basename(file_path))[0]
