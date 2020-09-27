@@ -45,7 +45,7 @@ class WeightArray:
             array_in_coordinate.to_csv(output_dir + output_path, index = False)
 
         if format == "hdf":
-            with h5py.File(path + '.h5', 'w') as hf:
+            with h5py.File(output_dir + output_path + '.h5', 'w') as hf:
                 hf.create_dataset(self.source,  data=array_in_coordinate)
 
     def plot(self, desired_component, color, cap):
