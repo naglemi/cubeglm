@@ -45,14 +45,14 @@ class Hypercube:
     def crop(self, left, top, right, bottom):
         self.hypercube = self.hypercube[top:bottom, left:right, :]
 
-    def save(self, output_path):
+    def save(self, output_path, force = False):
         metadata_dict = {"bands": self.hypercube.shape[2],
         "lines": self.hypercube.shape[0],
         "samples": self.hypercube.shape[1],
         "data type": 12,
         "Wavelength": self.wavelengths}
 
-        img = spy.envi.create_image(output_path, metadata_dict, force = True)
+        img = spy.envi.create_image(output_path, metadata_dict, force = force)
 
         mm = img.open_memmap(writable=True)
         mm[:] = self.hypercube[:]

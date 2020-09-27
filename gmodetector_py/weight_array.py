@@ -30,20 +30,22 @@ class WeightArray:
                 matrix_slice_in_triplet = np.column_stack(ar.ravel() for ar in (I, J, self.weights[:, :, i]))
                 array_in_coordinate = pd.concat([array_in_coordinate,
                 pd.DataFrame(matrix_slice_in_triplet[:, 2], columns = [self.components[i]])], axis = 1)
-                print('array shape is...')
-                print(array_in_coordinate.shape)
-                print('head row of array is...')
-                print(array_in_coordinate[:1])
-        array_in_coordinate = pd.DataFrame(array_in_coordinate)
+                #print('array shape is...')
+                #print(array_in_coordinate.shape)
+                #print('head row of array is...')
+                #print(array_in_coordinate[:1])
         # columns = ['rows', 'cols'] + self.components)
 
-        output_path = path + '_weights.' + format 
+        output_path = path + '_weights.' + format
 
         if format == "csv":
+            # I suspect the conversion from np.ndarray to pd.DataFrame is superfluous
+            array_in_coordinate = pd.DataFrame(array_in_coordinate)
             array_in_coordinate.to_csv(output_dir + output_path, index = False)
 
         if format == "hdf":
-            array_in_coordinate.to_hdf(output_dir + output_path, key = path)
+            with h5py.File(path + '.h5', 'w') as hf:
+                hf.create_dataset(self.source,  data=array_in_coordinate)
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
