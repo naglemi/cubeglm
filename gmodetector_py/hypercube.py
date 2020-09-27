@@ -2,6 +2,7 @@ import ntpath # Should work on all platforms for finding basename from file path
 import os
 import numpy as np
 import spectral as spy
+import h5py
 
 from gmodetector_py import read_wavelengths
 from gmodetector_py import find_desired_indices
