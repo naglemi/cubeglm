@@ -37,12 +37,12 @@ class WeightArray:
                 #print(array_in_coordinate[:1])
         # columns = ['rows', 'cols'] + self.components)
 
-        output_path = path + '_weights.' + format
+        output_path = path + '_weights'
 
         if format == "csv":
             # I suspect the conversion from np.ndarray to pd.DataFrame is superfluous
             array_in_coordinate = pd.DataFrame(array_in_coordinate)
-            array_in_coordinate.to_csv(output_dir + output_path, index = False)
+            array_in_coordinate.to_csv(output_dir + output_path + '.csv', index = False)
 
         if format == "hdf":
             with h5py.File(output_dir + output_path + '.h5', 'w') as hf:
