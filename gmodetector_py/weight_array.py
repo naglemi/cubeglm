@@ -46,7 +46,10 @@ class WeightArray:
 
         if format == "hdf":
             with h5py.File(output_dir + output_path + '.h5', 'w') as hf:
-                hf.create_dataset(self.source,  data=array_in_coordinate)
+                for i in range(0, len(self.components)):
+                    print('Saving matrix for component ' +
+                    self.components[i] + ' for ' + self.source)
+                    hf.create_dataset(self.components[i],  data=array_in_coordinate[:,:,i])
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
