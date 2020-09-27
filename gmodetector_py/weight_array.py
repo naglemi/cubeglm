@@ -4,6 +4,7 @@ import pandas as pd
 from gmodetector_py import find_desired_channel
 from gmodetector_py import slice_desired_channel
 from gmodetector_py import CLS_to_image
+import h5py
 
 class WeightArray:
     """A 3D array containing weights for each spectral component, obtained by regression of hybercube onto design matrix
