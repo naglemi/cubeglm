@@ -30,32 +30,30 @@ class WeightArray:
             if i > 0:
                 matrix_slice_in_triplet = np.column_stack(ar.ravel() for ar in (I, J, self.weights[:, :, i]))
                 array_in_coordinate = pd.concat([array_in_coordinate,
-                pd.DataFrame(matrix_slice_in_triplet[:, 2],
-                columns = [self.components[i]])],
-                axis = 1)
-                print('array shape is...')
-                print(array_in_coordinate.shape)
-                print('head row of array is...')
-                print(array_in_coordinate[:1])
+                pd.DataFrame(matrix_slice_in_triplet[:, 2], columns = [self.components[i]])], axis = 1)
+                #print('array shape is...')
+                #print(array_in_coordinate.shape)
+                #print('head row of array is...')
+                #print(array_in_coordinate[:1])
         # columns = ['rows', 'cols'] + self.components)
 
         output_path = path + '_weights'
 
         if format == "csv":
+            # I suspect the conversion from np.ndarray to pd.DataFrame is superfluous
+            array_in_coordinate = pd.DataFrame(array_in_coordinate)
             array_in_coordinate.to_csv(output_dir + output_path + '.csv', index = False)
 
         if format == "hdf":
             with h5py.File(output_dir + output_path + '.h5', 'w') as hf:
-                print('Output pandas df is of dim: ')
-                print(array_in_coordinate.shape)
                 print('Components to be saved:')
                 print(self.components)
                 for i in range(0, len(self.components)):
                     print('Saving matrix for component ' +
                     self.components[i] + ' for ' + self.source)
                     print('...of shape: ')
-                    print(array_in_coordinate[:,:,i].shape)
-                    hf.create_dataset(self.components[i],  data=array_in_coordinate[:,:,i])
+                    print(array_in_coordinate[:][:][i].shape)
+                    hf.create_dataset(self.components[i],  data=array_in_coordinate[:][:][i])
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
