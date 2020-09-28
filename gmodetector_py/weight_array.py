@@ -51,7 +51,9 @@ class WeightArray:
                 for i in range(0, len(self.components)):
                     print('Saving matrix for component ' +
                     self.components[i] + ' for ' + self.source)
-                    hf.create_dataset(self.components[i],  data=array_in_coordinate[:,:,i])
+                    print('...of shape: ')
+                    print(array_in_coordinate[:][:][i].shape)
+                    hf.create_dataset(self.components[i],  data=array_in_coordinate[:][:][i])
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
