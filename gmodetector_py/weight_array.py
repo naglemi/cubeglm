@@ -41,7 +41,8 @@ class WeightArray:
     def save(self, path, index_starting_at_one = True, format = "hdf",
     output_dir = "./"):
 
-        _convert_3D_to_pseudotriplet(self,index_starting_at_one = index_starting_at_one)
+        self._convert_3D_to_pseudotriplet(index_starting_at_one = index_starting_at_one)
+        
         output_path = output_dir + path + '_weights.' + format
 
         if format == "csv":
