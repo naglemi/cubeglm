@@ -39,7 +39,7 @@ class WeightArray:
         self._weights_pseudotriplet = array_in_coordinate
 
     def save(self, path, index_starting_at_one = True, format = "hdf",
-    output_dir = "./", index_starting_at_one = True):
+    output_dir = "./"):
 
         _convert_3D_to_pseudotriplet(self,index_starting_at_one = index_starting_at_one)
         output_path = output_dir + path + '_weights.' + format
