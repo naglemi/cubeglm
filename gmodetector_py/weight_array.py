@@ -17,7 +17,7 @@ class WeightArray:
 
     """
 
-    def save(self, path, index_starting_at_one = True, format = "hdf", output_dir = "./"):
+    def _convert_3D_to_pseudotriplet(self, index_starting_at_one = True):
         I, J = np.indices(self.weights.shape[0:2])
         if index_starting_at_one == True:
             I = I + 1
@@ -36,20 +36,21 @@ class WeightArray:
                 #print('head row of array is...')
                 #print(array_in_coordinate[:1])
         # columns = ['rows', 'cols'] + self.components)
+        self._weights_pseudotriplet = array_in_coordinate
 
-        output_path = path + '_weights'
+    def save(self, path, index_starting_at_one = True, format = "hdf",
+    output_dir = "./", index_starting_at_one = True):
+
+        _convert_3D_to_pseudotriplet(self,index_starting_at_one = index_starting_at_one)
+        output_path = output_dir + path + '_weights.' + format
 
         if format == "csv":
             # I suspect the conversion from np.ndarray to pd.DataFrame is superfluous
-            array_in_coordinate = pd.DataFrame(array_in_coordinate)
-            array_in_coordinate.to_csv(output_dir + output_path + '.csv', index = False)
+            #array_in_coordinate = pd.DataFrame(array_in_coordinate)
+            self._weights_pseudotriplet.to_csv(output_path, index = False)
 
         if format == "hdf":
-            with h5py.File(output_dir + output_path + '.h5', 'w') as hf:
-                for i in range(0, len(self.components)):
-                    print('Saving matrix for component ' +
-                    self.components[i] + ' for ' + self.source)
-                    hf.create_dataset(self.components[i],  data=array_in_coordinate[:,:,i])
+            self._weights_pseudotriplet.to_hdf(output_path, key = path)
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
