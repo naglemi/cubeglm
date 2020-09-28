@@ -46,8 +46,6 @@ class WeightArray:
 
         if format == "hdf":
             with h5py.File(output_dir + output_path + '.h5', 'w') as hf:
-                print('Components to be saved:')
-                print(self.components)
                 for i in range(0, len(self.components)):
                     print('Saving matrix for component ' +
                     self.components[i] + ' for ' + self.source)
