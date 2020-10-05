@@ -42,7 +42,7 @@ class WeightArray:
     output_dir = "./"):
 
         self._convert_3D_to_pseudotriplet(index_starting_at_one = index_starting_at_one)
-        
+
         output_path = output_dir + path + '_weights.' + format
 
         if format == "csv":
