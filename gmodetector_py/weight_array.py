@@ -43,15 +43,17 @@ class WeightArray:
 
         self._convert_3D_to_pseudotriplet(index_starting_at_one = index_starting_at_one)
 
-        output_path = output_dir + path + '_weights.' + format
-
         if format == "csv":
             # I suspect the conversion from np.ndarray to pd.DataFrame is superfluous
             #array_in_coordinate = pd.DataFrame(array_in_coordinate)
-            self._weights_pseudotriplet.to_csv(output_path, index = False)
+            for i in range(0, len(self.components)):
+                output_path = output_dir + path + '_' + self.components[i] + '_weights.' + format
+                self._weights_pseudotriplet.to_csv(output_path, index = False)
 
         if format == "hdf":
-            self._weights_pseudotriplet.to_hdf(output_path, key = path)
+            output_path = output_dir + path + '_weights.' + format
+            for i in range(0, len(self.components)):
+                self._weights_pseudotriplet.to_hdf(output_path, key = self.components[i])
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
