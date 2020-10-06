@@ -38,6 +38,9 @@ class WeightArray:
         # columns = ['rows', 'cols'] + self.components)
         self._weights_pseudotriplet = array_in_coordinate
 
+    def relu(self):
+        self.weights[self.weights < 0] = 0
+
     def save(self, path, index_starting_at_one = True, format = "hdf",
     output_dir = "./"):
 

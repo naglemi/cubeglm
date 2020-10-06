@@ -22,14 +22,16 @@ def slice_desired_channel(array, desired_channel):
     slice = array[:,:,desired_channel]
     return(slice)
 
-def CLS_to_image(CLS_matrix, cap, mode = 'opaque', match_size=False, color='white'):
+def CLS_to_image(CLS_matrix, cap, mode = 'opaque', match_size=False, color='white', relu = False):
     from PIL import Image
     import numpy as np
     # Usage:
     # image_out = CLS_to_image(CLS_matrix = load_CLS_layer(CLS_path = samples['CLS_data'][15],
     #                                                 layer = 'DsRed'),
     #                     cap = 10)
-    CLS_matrix[CLS_matrix < 0] = 0
+    if relu == True:
+        CLS_matrix[CLS_matrix < 0] = 0
+
     CLS_matrix = np.interp(CLS_matrix,
                              (0,
                               #CLS_matrix.max()),
