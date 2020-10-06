@@ -27,6 +27,8 @@ install:
   - chmod ugo+rwx R_scales_install.R
   - Rscript R_scales_install.R
   - pip install ".[test]" . # install package + test dependencies
-script: pytest # run tests
+script: python -m doctest -v gmodetector_py/misc_utils.py
+python -m doctest -v gmodetector_py/plot_utils.py
+pytest
 after_success:
   - codecov # submit coverage
