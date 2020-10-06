@@ -46,15 +46,13 @@ class WeightArray:
         if format == "csv":
             # I suspect the conversion from np.ndarray to pd.DataFrame is superfluous
             #array_in_coordinate = pd.DataFrame(array_in_coordinate)
-            for i in range(0, len(self.components)):
-                output_path = output_dir + path + '_' + self.components[i] + '_weights.' + format
-                self._weights_pseudotriplet.to_csv(output_path, index = False)
+            output_path = output_dir + path + '_' + self.components[i] + '_weights.' + format
+            self._weights_pseudotriplet.to_csv(output_path, index = False)
 
         if format == "hdf":
             output_path = output_dir + path + '_weights.' + format
-            for i in range(0, len(self.components)):
-                print('Saving layer ' + self.components[i] + ' to ' + output_path + ' with key ' + self.components[i])
-                self._weights_pseudotriplet.to_hdf(output_path, key = self.components[i], format = 'table')
+            print('Saving layer ' + self.components[i] + ' to ' + output_path + ' with key ' + self.components[i])
+            self._weights_pseudotriplet.to_hdf(output_path, key = 'weights', format = 'table')
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
