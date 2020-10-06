@@ -12,6 +12,8 @@ from gmodetector_py import read_wavelengths
 import warnings
 import argparse
 
+import os # needed for basename
+
 parser = argparse.ArgumentParser(description="""This script provides a wrapper
 for analyzing a sample by a start-to-finish hyperspectral regression workflow,
 including plotting and saving of weight arrays for each spectral component.""")
@@ -182,7 +184,7 @@ relu_before_plot = True):
                                test_cube=test_cube,
                                relu = relu)
 
-    weight_array.save(weight_array.source, format = weight_format)
+    weight_array.save(os.path.basename(weight_array.source), format = weight_format)
 
     if plot == True:
 
