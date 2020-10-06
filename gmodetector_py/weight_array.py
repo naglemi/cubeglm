@@ -51,7 +51,7 @@ class WeightArray:
 
         if format == "hdf":
             output_path = output_dir + path + '_weights.' + format
-            print('Saving layer ' + self.components[i] + ' to ' + output_path + ' with key of weights'')
+            print('Saving layer ' + self.components[i] + ' to ' + output_path + ' with key of weights')
             self._weights_pseudotriplet.to_hdf(output_path, key = 'weights', format = 'table')
 
     def plot(self, desired_component, color, cap):
