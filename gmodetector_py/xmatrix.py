@@ -7,9 +7,16 @@ class XMatrix:
 
     :param fluorophore_ID_vector: A list of spectral components in the spectral library
     :param spectral_library_path: A string indicating the directory where spectra can be found
-    :param intercept: If 0, no intercept is added to X. If 1, a vector of 1s equal to # spectra is prepended to X.
+    :param intercept: If 0, no intercept is added to X. If 1, a vector of 1's
+                    equal to # spectra is prepended to X during regression.
+                    This value should be set to 1 if there is any significant
+                    level of background noise in hypercubes (Y) being analyzed
     :param wavelengths: A list of precise wavelengths to be passed to read_fit spectra, which will fit the published spectra
-    :param spectra_noise_threshold: A float indicating a threshold below which fitted spectra values are set to zero (default value is 0.01, an approximate noise threshold of the Andor hyperspectral camera), passed to read_fit_spectra
+    :param spectra_noise_threshold: A float indicating a threshold below which fitted
+                    spectra values are set to zero (default value is 0.01,
+                    an approximate noise threshold of the Andor hyperspectral
+                    camera with settings used by Strauss Lab at the time of
+                    writing documentation), passed to read_fit_spectra)
     :param min_desired_wavelength: A numeric value indicating a threshold BELOW which spectral data is excluded
     :param max_desired_wavelength: A numeric value indicating a threshold ABOVE which spectral data is excluded
 

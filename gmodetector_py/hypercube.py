@@ -24,7 +24,11 @@ class Hypercube:
         """ Normalize a hyperspectral image (hypercube) against a standard image
         :param chroma_hypercube: A ``hypercube`` object for a chroma standard sample, against which the hypercube for a given experimental sample will be normalized
         :param chroma_width: The number of pixels to be extracted from the center of the chroma standard hypercube, over which the mean for each row will be taken and used for normalizing fluctuations in laser and/or signal intensity
-
+        :param rescale: Boolean (True or False) indicating whether to
+                    rescale the experimental sample's hypercube after
+                    normalization to bring the normalized spectra
+                    to approximately the sample mean intensity as prior to
+                    normalization
         """
         chroma_width_start = int((cube_shape[0]/2) - (chroma_width / 2))
         chroma_width_end = int((cube_shape[0]/2) + (chroma_width / 2))

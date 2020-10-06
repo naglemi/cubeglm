@@ -86,3 +86,6 @@ def checkIfDuplicates_l(listOfElems):
         return False
     else:
         return True
+
+import doctest
+doctest.testmod()
