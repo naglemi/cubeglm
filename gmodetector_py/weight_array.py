@@ -54,7 +54,7 @@ class WeightArray:
             output_path = output_dir + path + '_weights.' + format
             for i in range(0, len(self.components)):
                 print('Saving layer ' + self.components[i] + ' to ' + output_path + ' with key ' + self.components[i])
-                self._weights_pseudotriplet.to_hdf(output_path, key = self.components[i])
+                self._weights_pseudotriplet.to_hdf(output_path, key = self.components[i], format = 'table')
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
