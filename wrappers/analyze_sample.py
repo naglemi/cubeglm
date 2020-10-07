@@ -228,7 +228,7 @@ if __name__ == "__main__":
     blue_cap = args.blue_cap,
     weight_format = args.weight_format,
     plot = args.plot,
-    spectral_library_path = args.spectral_library_path,
+    spectral_library_path = args.spectral_library_path[0],
     intercept = args.intercept,
     spectra_noise_threshold = args.spectra_noise_threshold,
     normalize = args.normalize,
