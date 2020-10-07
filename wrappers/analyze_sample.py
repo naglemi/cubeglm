@@ -25,7 +25,7 @@ including plotting and saving of weight arrays for each spectral component.""")
 parser.add_argument('file_path', type = str, nargs = 1,
                     help = """Relative filepath to the metadata file (.hdr) for
                     a sample to be analyzed""")
-parser.add_argument('--fluorophores', type=str, nargs = '+',
+parser.add_argument('--fluorophores', type = str, nargs = '+',
                     dest = 'fluorophore_ID_vector',
                     help = 'A list of spectral components in the spectral library')
 parser.add_argument('--min_desired_wavelength', nargs = 1,
@@ -216,7 +216,7 @@ relu_before_plot = True):
     return('Finished running sample ' + file_path + ' in ' + str(time_post_read_partial) + 's')
 
 if __name__ == "__main__":
-    analyze_sample(file_path = args.file_path,
+    analyze_sample(file_path = str(args.file_path), # needed to avoid TypeError: expected str, bytes or os.PathLike object, not list
     fluorophore_ID_vector = args.fluorophore_ID_vector,
     min_desired_wavelength = args.min_desired_wavelength,
     max_desired_wavelength = args.max_desired_wavelength,
