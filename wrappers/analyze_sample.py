@@ -114,7 +114,7 @@ parser.add_argument('--chroma_path', nargs = 1, default = None,
                     experimental samples will be normalized. Please note the
                     `--normalize` flag must be set to `True` if normalizing.""")
 parser.add_argument('--relu' , type = bool, nargs = 1, default = True,
-                    dest = 'relu_before_plot'
+                    dest = 'relu_before_plot',
                     help = """Whether to replace values below zero in the weight
                     array with zero before making plots; needed for scales to be
                     consistent across images with the same color/cap settings""")
