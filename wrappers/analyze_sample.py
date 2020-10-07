@@ -188,7 +188,7 @@ relu_before_plot = True):
 
     weight_array = WeightArray(test_matrix=test_matrix,
                                test_cube=test_cube,
-                               relu = relu)
+                               relu = relu_before_plot)
 
     weight_array.save(os.path.basename(weight_array.source), format = weight_format)
 
