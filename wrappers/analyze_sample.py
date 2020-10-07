@@ -22,10 +22,10 @@ parser = argparse.ArgumentParser(description="""This script provides a wrapper
 for analyzing a sample by a start-to-finish hyperspectral regression workflow,
 including plotting and saving of weight arrays for each spectral component.""")
 
-parser.add_argument('file_path', type = string, nargs = 1,
+parser.add_argument('file_path', type = str, nargs = 1,
                     help = """Relative filepath to the metadata file (.hdr) for
                     a sample to be analyzed""")
-parser.add_argument('--fluorophores', type=string, nargs = '+',
+parser.add_argument('--fluorophores', type=str, nargs = '+',
                     dest = 'fluorophore_ID_vector',
                     help = 'A list of spectral components in the spectral library')
 parser.add_argument('--min_desired_wavelength', type = numeric, nargs = 1,
@@ -34,37 +34,37 @@ parser.add_argument('--min_desired_wavelength', type = numeric, nargs = 1,
 parser.add_argument('--max_desired_wavelength', type = numeric, nargs = 1,
                     help = """A numeric value indicating a threshold ABOVE
                     which spectral data is excluded""")
-parser.add_argument('--green_channel', type = string, nargs = 1,
-                    help = """A string matching the ID of the spectral component
+parser.add_argument('--green_channel', type = str, nargs = 1,
+                    help = """A str matching the ID of the spectral component
                     for which weights will be plotted (e.g. 'GFP')
                     with GREEN false color""")
-parser.add_argument('--red_channel', type = string, nargs = 1,
-                    help = """A string matching the ID of the spectral component
+parser.add_argument('--red_channel', type = str, nargs = 1,
+                    help = """A str matching the ID of the spectral component
                     for which weights will be plotted (e.g. 'GFP')
                     with RED false color""")
-parser.add_argument('--blue_channel', type = string, nargs = 1,
-                    help = """A string matching the ID of the spectral component
+parser.add_argument('--blue_channel', type = str, nargs = 1,
+                    help = """A str matching the ID of the spectral component
                     for which weights will be plotted (e.g. 'GFP')
                     with BLUE false color""")
-parser.add_argument('--green_cap', type = string, nargs = 1,
+parser.add_argument('--green_cap', type = str, nargs = 1,
                     help = """A numeric value of the spectral intensity value
                     of the GREEN channel (specified by `--green-channel` that
                     will have maximum brightness in the plot.
                     All with greater intensity will have the same level of
                     brightness. Think of this as image exposure on a camera.""")
-parser.add_argument('--red_cap', type = string, nargs = 1,
+parser.add_argument('--red_cap', type = str, nargs = 1,
                     help = """A numeric value of the spectral intensity value
                     of the RED channel (specified by `--red-channel` that
                     will have maximum brightness in the plot.
                     All with greater intensity will have the same level of
                     brightness. Think of this as image exposure on a camera.""")
-parser.add_argument('--blue_cap', type = string, nargs = 1,
+parser.add_argument('--blue_cap', type = str, nargs = 1,
                     help = """A numeric value of the spectral intensity value
                     of the BLUE channel (specified by `--blue-channel` that
                     will have maximum brightness in the plot.
                     All with greater intensity will have the same level of
                     brightness. Think of this as image exposure on a camera.""")
-parser.add_argument('--weight_format', type = string, nargs = 1, default = 'hdf',
+parser.add_argument('--weight_format', type = str, nargs = 1, default = 'hdf',
                     help = """The format in which the weight array will be saved;
                     Currently supported are `csv` and `hdf` (h5py) formats.""")
 parser.add_argument('--plot', type = bool, nargs = 1, default = False,
@@ -75,7 +75,7 @@ parser.add_argument('--plot', type = bool, nargs = 1, default = False,
                     regression in `analyze_sample`; this must be done
                     independently for a given sample as described in
                     documentation for the `Hypercube` class.""")
-parser.add_argument('--spectral_library_path', type = string, nargs = 1,
+parser.add_argument('--spectral_library_path', type = str, nargs = 1,
                     default = './spectral_library/',
                     help = """Path to a folder in which all spectra listed by the
                     `--fluorophores` flag are included in the appropriate format
