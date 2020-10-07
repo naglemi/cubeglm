@@ -71,7 +71,6 @@ def build_X(fluorophore_ID_vector, spectral_library_path,
     """
     from gmodetector_py import find_desired_indices
     for i in range(0, (len(fluorophore_ID_vector))):
-        print(i)
         path = (spectral_library_path + str(fluorophore_ID_vector[i]) + ".csv")
         if(os.path.isfile(path) == False):
             raise NameError("Error: Spectrum for " + fluorophore_ID_vector[i] + " not found in spectra_library folder")
