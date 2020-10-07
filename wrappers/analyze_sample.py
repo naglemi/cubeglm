@@ -22,7 +22,6 @@ parser = argparse.ArgumentParser(description="""This script provides a wrapper
 for analyzing a sample by a start-to-finish hyperspectral regression workflow,
 including plotting and saving of weight arrays for each spectral component.""")
 
-parser.add_argument('--file_path', type = str, nargs = 1,
                     help = """Relative filepath to the metadata file (.hdr) for
                     a sample to be analyzed""")
 parser.add_argument('--fluorophores', type = str, nargs = '+',
@@ -34,40 +33,40 @@ parser.add_argument('--min_desired_wavelength',
 parser.add_argument('--max_desired_wavelength',
                     help = """A numeric value indicating a threshold ABOVE
                     which spectral data is excluded""")
-parser.add_argument('--green_channel', type = str, nargs = 1,
+parser.add_argument('--green_channel', type = str,
                     help = """A str matching the ID of the spectral component
                     for which weights will be plotted (e.g. 'GFP')
                     with GREEN false color""")
-parser.add_argument('--red_channel', type = str, nargs = 1,
+parser.add_argument('--red_channel', type = str,
                     help = """A str matching the ID of the spectral component
                     for which weights will be plotted (e.g. 'GFP')
                     with RED false color""")
-parser.add_argument('--blue_channel', type = str, nargs = 1,
+parser.add_argument('--blue_channel', type = str,
                     help = """A str matching the ID of the spectral component
                     for which weights will be plotted (e.g. 'GFP')
                     with BLUE false color""")
-parser.add_argument('--green_cap', type = str, nargs = 1,
+parser.add_argument('--green_cap', type = str,
                     help = """A numeric value of the spectral intensity value
                     of the GREEN channel (specified by `--green-channel` that
                     will have maximum brightness in the plot.
                     All with greater intensity will have the same level of
                     brightness. Think of this as image exposure on a camera.""")
-parser.add_argument('--red_cap', type = str, nargs = 1,
+parser.add_argument('--red_cap', type = str,
                     help = """A numeric value of the spectral intensity value
                     of the RED channel (specified by `--red-channel` that
                     will have maximum brightness in the plot.
                     All with greater intensity will have the same level of
                     brightness. Think of this as image exposure on a camera.""")
-parser.add_argument('--blue_cap', type = str, nargs = 1,
+parser.add_argument('--blue_cap', type = str,
                     help = """A numeric value of the spectral intensity value
                     of the BLUE channel (specified by `--blue-channel` that
                     will have maximum brightness in the plot.
                     All with greater intensity will have the same level of
                     brightness. Think of this as image exposure on a camera.""")
-parser.add_argument('--weight_format', type = str, nargs = 1, default = 'hdf',
+parser.add_argument('--weight_format', type = str, default = 'hdf',
                     help = """The format in which the weight array will be saved;
                     Currently supported are `csv` and `hdf` (h5py) formats.""")
-parser.add_argument('--plot', type = bool, nargs = 1, default = False,
+parser.add_argument('--plot', type = bool, default = False,
                     help = """Boolean (True or False) indicating whether to
                     create false color plots of spectral components. Note that
                     at the time of writing documentation, there is no support
@@ -75,45 +74,45 @@ parser.add_argument('--plot', type = bool, nargs = 1, default = False,
                     regression in `analyze_sample`; this must be done
                     independently for a given sample as described in
                     documentation for the `Hypercube` class.""")
-parser.add_argument('--spectral_library_path', type = str, nargs = 1,
+parser.add_argument('--spectral_library_path', type = str,
                     default = './spectral_library/',
                     help = """Path to a folder in which all spectra listed by the
                     `--fluorophores` flag are included in the appropriate format
                     (See documentation for `XMatrix` object, or examples for
                     format details""")
-parser.add_argument('--intercept', type = int, nargs = 1, default = 1,
+parser.add_argument('--intercept', type = int, default = 1,
                     help = """If 0, no intercept is added to X. If 1, a vector
                     of 1's equal to # spectra is prepended to X during regression.
                     This value should be set to 1 if there is any significant
                     level of background noise in hypercubes (Y) being
                     analyzed""")
-parser.add_argument('--spectra_noise_threshold', type = float, nargs = 1,
+parser.add_argument('--spectra_noise_threshold', type = float,
                     default = 0.01,
                     help = """A float indicating a threshold below which fitted
                     spectra values are set to zero (default value is 0.01,
                     an approximate noise threshold of the Andor hyperspectral
                     camera with settings used by Strauss Lab at the time of
                     writing documentation), passed to read_fit_spectra)""")
-parser.add_argument('--normalize', type = bool, nargs = 1, default = False,
+parser.add_argument('--normalize', type = bool, default = False,
                     help = """Boolean (True or False) indicating whether
                     to normalize the experimental sample against
                     a user-provided chroma standard""")
-parser.add_argument('--rescale', type = bool, nargs = 1, default = True,
+parser.add_argument('--rescale', type = bool, default = True,
                     help = """Boolean (True or False) indicating whether to
                     rescale the experimental sample's hypercube after
                     normalization to bring the normalized spectra
                     to approximately the sample mean intensity as prior to
                     normalization""")
-parser.add_argument('--chroma_width', type = int, nargs = 1, default = 10,
+parser.add_argument('--chroma_width', type = int, default = 10,
                     help = """The number of pixels to be extracted from the
                     center of the chroma standard hypercube, over which the
                     mean for each row will be taken and used for normalizing
                     fluctuations in laser and/or signal intensity""")
-parser.add_argument('--chroma_path', nargs = 1, default = None,
+parser.add_argument('--chroma_path', default = None,
                     help = """The filepath to a chroma standard against which
                     experimental samples will be normalized. Please note the
                     `--normalize` flag must be set to `True` if normalizing.""")
-parser.add_argument('--relu' , type = bool, nargs = 1, default = True,
+parser.add_argument('--relu' , type = bool, default = True,
                     dest = 'relu_before_plot',
                     help = """Whether to replace values below zero in the weight
                     array with zero before making plots; needed for scales to be
@@ -216,7 +215,7 @@ relu_before_plot = True):
     return('Finished running sample ' + file_path + ' in ' + str(time_post_read_partial) + 's')
 
 if __name__ == "__main__":
-    analyze_sample(file_path = args.file_path[0], # needed to avoid TypeError: expected str, bytes or os.PathLike object, not list
+    analyze_sample(file_path = args.file_path, # needed to avoid TypeError: expected str, bytes or os.PathLike object, not list
     fluorophore_ID_vector = args.fluorophore_ID_vector,
     min_desired_wavelength = args.min_desired_wavelength,
     max_desired_wavelength = args.max_desired_wavelength,
@@ -228,7 +227,7 @@ if __name__ == "__main__":
     blue_cap = args.blue_cap,
     weight_format = args.weight_format,
     plot = args.plot,
-    spectral_library_path = args.spectral_library_path[0],
+    spectral_library_path = args.spectral_library_path,
     intercept = args.intercept,
     spectra_noise_threshold = args.spectra_noise_threshold,
     normalize = args.normalize,
