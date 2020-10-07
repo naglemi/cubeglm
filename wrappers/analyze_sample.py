@@ -15,6 +15,7 @@ from gmodetector_py import read_wavelengths
 # The following are needed for this specific wrapper script only
 import warnings
 import argparse
+import time
 
 import os # needed for basename
 
