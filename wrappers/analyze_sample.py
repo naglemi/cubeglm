@@ -24,7 +24,7 @@ for analyzing a sample by a start-to-finish hyperspectral regression workflow,
 including plotting and saving of weight arrays for each spectral component.""")
 
 parser.add_argument('--file_path', type = str,
-                    help = """Relative filepath to the metadata file (.hdr) for
+                    help = """Filepath to the metadata file (.hdr) for
                     a sample to be analyzed""")
 parser.add_argument('--fluorophores', type = str, nargs = '+',
                     dest = 'fluorophore_ID_vector',
@@ -119,6 +119,8 @@ parser.add_argument('--relu' , type = bool, default = True,
                     help = """Whether to replace values below zero in the weight
                     array with zero before making plots; needed for scales to be
                     consistent across images with the same color/cap settings""")
+parser.add_argument('--file_path', type = str,
+                    help = 'Filepath to directory for saving outputs')
 
 args = parser.parse_args()
 print(args)
@@ -130,7 +132,7 @@ green_cap, red_cap, blue_cap, weight_format = 'hdf', plot = True,
 spectral_library_path = './spectral_library/', intercept = 1,
 spectra_noise_threshold = 0.01, normalize = False, rescale = True,
 chroma_width = 10, chroma_hypercube = None, chroma_path = None,
-relu_before_plot = True):
+relu_before_plot = True, output_dir):
     """This function provides a wrapper for analyzing a sample by a
     start-to-finish hyperspectral regression workflow, including plotting
     and saving of weight arrays for each spectral component. At the time of
@@ -144,6 +146,8 @@ relu_before_plot = True):
     `chroma_path` that allows for a common chroma standard to be stored in shared
     memory when parallelization in Python (rather than just command line) is
     used."""
+
+    time_pre_read_partial = time.perf_counter()
 
     if chroma_hypercube is not None and chroma_path is not None:
         raise Exception("""Chroma standard was submitted both as a pre-loaded
@@ -181,7 +185,7 @@ relu_before_plot = True):
                       min_desired_wavelength = min_desired_wavelength,
                       max_desired_wavelength = max_desired_wavelength)
 
-    time_pre_read_partial = time.perf_counter()
+
     test_cube = Hypercube(file_path,
                           min_desired_wavelength = min_desired_wavelength,
                           max_desired_wavelength = max_desired_wavelength)
@@ -190,7 +194,8 @@ relu_before_plot = True):
                                test_cube=test_cube,
                                relu = relu_before_plot)
 
-    weight_array.save(os.path.basename(weight_array.source), format = weight_format)
+    weight_array.save(os.path.basename(weight_array.source), format = weight_format,
+    output_dir = output_dir)
 
     if plot == True:
 
@@ -210,11 +215,12 @@ relu_before_plot = True):
                                                            color = 'blue',
                                                            cap = blue_cap)])
 
-        stacked_component_image.save(stacked_component_image.source)
+        stacked_component_image.save(stacked_component_image.source,
+        output_dir = output_dir)
 
     time_post_read_partial = time.perf_counter() - time_pre_read_partial
 
-    return('Finished running sample ' + file_path + ' in ' + str(time_post_read_partial) + 's')
+    print('Finished running sample ' + file_path + ' in ' + str(time_post_read_partial) + 's')
 
 if __name__ == "__main__":
     analyze_sample(file_path = args.file_path, # needed to avoid TypeError: expected str, bytes or os.PathLike object, not list
@@ -237,4 +243,5 @@ if __name__ == "__main__":
     chroma_width = args.chroma_width,
     #chroma_hypercube = None,
     chroma_path = args.chroma_path,
-    relu_before_plot = args.relu_before_plot)
+    relu_before_plot = args.relu_before_plot,
+    output_dir = args.output_dir)

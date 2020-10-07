@@ -1,6 +1,8 @@
 from gmodetector_py import checkIfDuplicates_l
 from gmodetector_py import stack_images
 
+import os
+
 class FalseColor:
     """A combination of channels visualized from either a hybercube, or from a weight array produced by regression
 
@@ -14,6 +16,10 @@ class FalseColor:
 
     def save(self, path_prefix, output_dir = "./"):
         import pandas as pd
+
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
         metadata = pd.DataFrame(zip(self.IDs,
                                     self.colors,
                                     self.caps),

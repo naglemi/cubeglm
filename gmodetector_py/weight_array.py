@@ -1,10 +1,12 @@
 from gmodetector_py import regress
-import numpy as np
-import pandas as pd
 from gmodetector_py import find_desired_channel
 from gmodetector_py import slice_desired_channel
 from gmodetector_py import CLS_to_image
+
 import h5py
+import numpy as np
+import pandas as pd
+import os
 
 class WeightArray:
     """A 3D array containing weights for each spectral component, obtained by regression of hybercube onto design matrix
@@ -43,6 +45,9 @@ class WeightArray:
 
     def save(self, path, index_starting_at_one = True, format = "hdf",
     output_dir = "./"):
+
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
 
         self._convert_3D_to_pseudotriplet(index_starting_at_one = index_starting_at_one)
 
