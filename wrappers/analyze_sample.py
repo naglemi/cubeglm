@@ -28,10 +28,10 @@ parser.add_argument('file_path', type = str, nargs = 1,
 parser.add_argument('--fluorophores', type=str, nargs = '+',
                     dest = 'fluorophore_ID_vector',
                     help = 'A list of spectral components in the spectral library')
-parser.add_argument('--min_desired_wavelength', type = numeric, nargs = 1,
+parser.add_argument('--min_desired_wavelength', nargs = 1,
                     help = """A numeric value indicating a threshold BELOW
                     which spectral data is excluded""")
-parser.add_argument('--max_desired_wavelength', type = numeric, nargs = 1,
+parser.add_argument('--max_desired_wavelength', nargs = 1,
                     help = """A numeric value indicating a threshold ABOVE
                     which spectral data is excluded""")
 parser.add_argument('--green_channel', type = str, nargs = 1,
@@ -81,13 +81,13 @@ parser.add_argument('--spectral_library_path', type = str, nargs = 1,
                     `--fluorophores` flag are included in the appropriate format
                     (See documentation for `XMatrix` object, or examples for
                     format details""")
-parser.add_argument('--intercept', type = numeric, nargs = 1, default = 1,
+parser.add_argument('--intercept', type = int, nargs = 1, default = 1,
                     help = """If 0, no intercept is added to X. If 1, a vector
                     of 1's equal to # spectra is prepended to X during regression.
                     This value should be set to 1 if there is any significant
                     level of background noise in hypercubes (Y) being
                     analyzed""")
-parser.add_argument('--spectra_noise_threshold', type = numeric, nargs = 1,
+parser.add_argument('--spectra_noise_threshold', type = float, nargs = 1,
                     default = 0.01,
                     help = """A float indicating a threshold below which fitted
                     spectra values are set to zero (default value is 0.01,
@@ -104,7 +104,7 @@ parser.add_argument('--rescale', type = bool, nargs = 1, default = True,
                     normalization to bring the normalized spectra
                     to approximately the sample mean intensity as prior to
                     normalization""")
-parser.add_argument('--chroma_width', type = numeric, nargs = 1, default = 10,
+parser.add_argument('--chroma_width', type = int, nargs = 1, default = 10,
                     help = """The number of pixels to be extracted from the
                     center of the chroma standard hypercube, over which the
                     mean for each row will be taken and used for normalizing
