@@ -49,7 +49,7 @@ class WeightArray:
         if format == "csv":
             # I suspect the conversion from np.ndarray to pd.DataFrame is superfluous
             #array_in_coordinate = pd.DataFrame(array_in_coordinate)
-            output_path = output_dir + path + _weights.' + format
+            output_path = output_dir + path + '_weights.' + format
             self._weights_pseudotriplet.to_csv(output_path, index = False)
 
         if format == "hdf":
