@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser(description="""This script provides a wrapper
 for analyzing a sample by a start-to-finish hyperspectral regression workflow,
 including plotting and saving of weight arrays for each spectral component.""")
 
-parser.add_argument('file_path', type = str, nargs = 1,
+parser.add_argument('--file_path', type = str, nargs = 1,
                     help = """Relative filepath to the metadata file (.hdr) for
                     a sample to be analyzed""")
 parser.add_argument('--fluorophores', type = str, nargs = '+',
