@@ -28,10 +28,10 @@ parser.add_argument('--file_path', type = str,
 parser.add_argument('--fluorophores', type = str, nargs = '+',
                     dest = 'fluorophore_ID_vector',
                     help = 'A list of spectral components in the spectral library')
-parser.add_argument('--min_desired_wavelength',
+parser.add_argument('--min_desired_wavelength', type = float,
                     help = """A numeric value indicating a threshold BELOW
                     which spectral data is excluded""")
-parser.add_argument('--max_desired_wavelength',
+parser.add_argument('--max_desired_wavelength', type = float,
                     help = """A numeric value indicating a threshold ABOVE
                     which spectral data is excluded""")
 parser.add_argument('--green_channel', type = str,
