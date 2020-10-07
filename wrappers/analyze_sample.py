@@ -132,7 +132,7 @@ green_cap, red_cap, blue_cap, weight_format = 'hdf', plot = True,
 spectral_library_path = './spectral_library/', intercept = 1,
 spectra_noise_threshold = 0.01, normalize = False, rescale = True,
 chroma_width = 10, chroma_hypercube = None, chroma_path = None,
-relu_before_plot = True, output_dir = './'):
+relu_before_plot = True, output_dir = './', relu = True):
     """This function provides a wrapper for analyzing a sample by a
     start-to-finish hyperspectral regression workflow, including plotting
     and saving of weight arrays for each spectral component. At the time of
