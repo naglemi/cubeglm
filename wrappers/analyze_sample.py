@@ -119,7 +119,7 @@ parser.add_argument('--relu' , type = bool, nargs = 1, default = True,
                     consistent across images with the same color/cap settings""")
 
 args = parser.parse_args()
-print(args.accumulate(args.integers))
+print(args)
 
 def analyze_sample(file_path,fluorophore_ID_vector,
 min_desired_wavelength, max_desired_wavelength,
