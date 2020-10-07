@@ -119,7 +119,7 @@ parser.add_argument('--relu' , type = bool, default = True,
                     help = """Whether to replace values below zero in the weight
                     array with zero before making plots; needed for scales to be
                     consistent across images with the same color/cap settings""")
-parser.add_argument('--file_path', type = str,
+parser.add_argument('--output_dir', type = str,
                     help = 'Filepath to directory for saving outputs')
 
 args = parser.parse_args()
