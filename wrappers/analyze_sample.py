@@ -216,7 +216,7 @@ relu_before_plot = True):
     return('Finished running sample ' + file_path + ' in ' + str(time_post_read_partial) + 's')
 
 if __name__ == "__main__":
-    analyze_sample(file_path = str(args.file_path), # needed to avoid TypeError: expected str, bytes or os.PathLike object, not list
+    analyze_sample(file_path = args.file_path[0], # needed to avoid TypeError: expected str, bytes or os.PathLike object, not list
     fluorophore_ID_vector = args.fluorophore_ID_vector,
     min_desired_wavelength = args.min_desired_wavelength,
     max_desired_wavelength = args.max_desired_wavelength,
