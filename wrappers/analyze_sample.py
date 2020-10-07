@@ -1,4 +1,8 @@
 # Import classes
+# Check version
+from gmodetector_py import version
+print('Running GMOdetector version ' + version.__version__)
+
 from gmodetector_py import XMatrix
 from gmodetector_py import Hypercube
 from gmodetector_py import WeightArray
@@ -162,7 +166,7 @@ relu_before_plot = True):
         min_desired_wavelength = min_desired_wavelength,
         max_desired_wavelength = max_desired_wavelength)
 
-    if normalize = True:
+    if normalize == True:
         normalize(self, chroma_hypercube, chroma_width, rescale = rescale)
 
     wavelengths = read_wavelengths(file_path = file_path)
@@ -211,7 +215,7 @@ relu_before_plot = True):
     return('Finished running sample ' + file_path + ' in ' + str(time_post_read_partial) + 's')
 
 if __name__ == "__main__":
-    analyze_sample(file_path,
+    analyze_sample(file_path = args.file_path,
     fluorophore_ID_vector = args.fluorophore_ID_vector,
     min_desired_wavelength = args.min_desired_wavelength,
     max_desired_wavelength = args.max_desired_wavelength,
