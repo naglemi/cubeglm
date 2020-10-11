@@ -16,6 +16,8 @@ from gmodetector_py import read_wavelengths
 import warnings
 import argparse
 import time
+from datetime import datetime
+import ntpath
 
 import os # needed for basename
 
@@ -119,20 +121,20 @@ parser.add_argument('--relu' , type = bool, default = True,
                     help = """Whether to replace values below zero in the weight
                     array with zero before making plots; needed for scales to be
                     consistent across images with the same color/cap settings""")
-parser.add_argument('--output_dir', type = str,
+parser.add_argument('--output_dir', type = str, default = './',
                     help = 'Filepath to directory for saving outputs')
 
 args = parser.parse_args()
-print(args)
+
 
 def analyze_sample(file_path,fluorophore_ID_vector,
-min_desired_wavelength, max_desired_wavelength,
-green_channel, red_channel, blue_channel,
-green_cap, red_cap, blue_cap, weight_format = 'hdf', plot = True,
-spectral_library_path = './spectral_library/', intercept = 1,
-spectra_noise_threshold = 0.01, normalize = False, rescale = True,
-chroma_width = 10, chroma_hypercube = None, chroma_path = None,
-relu_before_plot = True, output_dir = './', relu = True):
+                   min_desired_wavelength, max_desired_wavelength,
+                   green_channel, red_channel, blue_channel,
+                   green_cap, red_cap, blue_cap, weight_format = 'hdf', plot = True,
+                   spectral_library_path = './spectral_library/', intercept = 1,
+                   spectra_noise_threshold = 0.01, normalize = False, rescale = True,
+                   chroma_width = 10, chroma_hypercube = None, chroma_path = None,
+                   relu_before_plot = True, output_dir = './', relu = True):
     """This function provides a wrapper for analyzing a sample by a
     start-to-finish hyperspectral regression workflow, including plotting
     and saving of weight arrays for each spectral component. At the time of
@@ -147,6 +149,24 @@ relu_before_plot = True, output_dir = './', relu = True):
     memory when parallelization in Python (rather than just command line) is
     used."""
 
+    filepath_sansdir_basename = os.path.splitext(ntpath.basename(file_path))[0]
+    #log_path = output_dir + filepath_sansdir_basename + '.log'
+    #if os.path.isfile(log_path):
+    #    warnings.warn('Sample' + filepath_sansdir_basename + """has already been 
+    #    run, with output saved to the same dir specified: """ + output_dir + 
+    #    'Results and log will be overwritten.')
+    
+    from datetime import datetime
+    # datetime object containing current date and time
+    start_time = datetime.now()
+    
+    # dd/mm/YY H:M:S
+    dt_string = start_time.strftime("%d/%m/%Y %H:%M:%S")
+    #print("Analysis for this sample is starting at " +
+    #      dt_string + '\n'
+    #      ' with parameters: ' + str(locals()))
+    #      #file=open(log_path, "w"))
+    
     time_pre_read_partial = time.perf_counter()
 
     if chroma_hypercube is not None and chroma_path is not None:
@@ -194,8 +214,9 @@ relu_before_plot = True, output_dir = './', relu = True):
                                test_cube=test_cube,
                                relu = relu_before_plot)
 
-    weight_array.save(os.path.basename(weight_array.source), format = weight_format,
-    output_dir = output_dir)
+    weight_array.save(ntpath.basename(weight_array.source),
+                      format = weight_format,
+                      output_dir = output_dir)
 
     if plot == True:
 
@@ -219,9 +240,21 @@ relu_before_plot = True, output_dir = './', relu = True):
         output_dir = output_dir)
 
     time_post_read_partial = time.perf_counter() - time_pre_read_partial
-
-    print('Finished running sample ' + file_path + ' in ' + str(time_post_read_partial) + 's')
-
+    
+    import gc
+    gc.collect()
+    
+    print('\nFinished running sample ' + 
+          file_path + ' in ' + 
+          str(time_post_read_partial) + 's' + '\n')
+    
+    #print('Finished running sample ' + 
+    #      file_path + ' in ' + 
+    #      str(time_post_read_partial) + 's' + '\n',
+    #      file=open(log_path, "a"))
+    
+    #print('Log saved to: ' + log_path + '\n')
+        
 if __name__ == "__main__":
     analyze_sample(file_path = args.file_path, # needed to avoid TypeError: expected str, bytes or os.PathLike object, not list
     fluorophore_ID_vector = args.fluorophore_ID_vector,
@@ -245,3 +278,5 @@ if __name__ == "__main__":
     chroma_path = args.chroma_path,
     relu_before_plot = args.relu_before_plot,
     output_dir = args.output_dir)
+    
+    #print(args)
