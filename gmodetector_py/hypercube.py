@@ -77,12 +77,40 @@ class Hypercube:
                             match_size=False, color=color)
         return(plot_out)
 
-    def __init__(self, file_path, min_desired_wavelength, max_desired_wavelength):
+    def __init__(self, file_path, min_desired_wavelength, max_desired_wavelength,
+                 load_mode = 'load_full_then_crop',
+                 use_memmap_for_read_bands = False):
+        #print('Value of `use_memmap` inside `__init__` of `Hypercube` is False')
+        print('load mode is' + load_mode)
         # Define attribute with contents of the value param
         all_wavelengths = read_wavelengths(file_path)
         subset_indices = find_desired_indices(all_wavelengths, min_desired_wavelength, max_desired_wavelength)
         subset_wavelengths = np.array(all_wavelengths)[subset_indices[0]]
         # spy.settings.envi_support_nonlowercase_params = True # This isn't working here... Warning still appears.
-        self.hypercube = spy.io.envi.open(file_path).read_bands(bands=subset_indices[0])
+        
+        #print('This `load_mode` is: ' + load_mode)
+        
+        if load_mode == 'read_bands':
+            file_pointer = spy.io.envi.open(file_path)
+            #print('Is memmap being used for the image loaded?')
+            #print(file_pointer.using_memmap)
+            self.hypercube = file_pointer.read_bands(bands=subset_indices[0],
+                                                     use_memmap = use_memmap_for_read_bands)
+            
+        if load_mode == 'load_full_then_crop':
+            #print('type of variable `subset_wavelengths` is' + str(type(subset_wavelengths)))
+            #print('type of value `subset_wavelengths[0]` is' + str(type(subset_wavelengths[0])))
+            #print('Value `subset_wavelengths[0]` is:')
+            #print(subset_wavelengths[0])
+            
+            #print('type of variable `subset_indices[0]` is ' + str(type(subset_indices[0])))
+            #print('Value `subset_indices[0]` is:')
+            #print(subset_indices[0])
+            #print('Length of `subset_indices[0]` is:')
+            #print(str(len(subset_indices[0])))
+            self.hypercube = spy.open_image(file_path).load()[:,:,subset_indices[0]]
+            #print('Shape of hypercube after subsetting is...')
+            #print(self.hypercube.shape)
+
         self.wavelengths = subset_wavelengths
         self.source = os.path.splitext(ntpath.basename(file_path))[0]
