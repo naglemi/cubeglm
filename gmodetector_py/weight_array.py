@@ -74,6 +74,9 @@ class WeightArray:
                                                         desired_component)
         Weights_desired_peak_channel = slice_desired_channel(self.weights,
                                                              index_of_desired_channel)
+        
+        Weights_desired_peak_channel = np.expand_dims(Weights_desired_peak_channel, axis=2)
+        
         plot_out = CLS_to_image(CLS_matrix = Weights_desired_peak_channel,
                                 cap = cap, mode = 'opaque',
                                 match_size=False, color=color)

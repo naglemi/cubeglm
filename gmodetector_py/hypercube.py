@@ -72,9 +72,13 @@ class Hypercube:
                                                         desired_wavelength)
         Hypercube_desired_peak_channel = slice_desired_channel(self.hypercube,
                                                                index_of_desired_channel)
+        
+        if self.load_mode == 'read_bands':
+            Hypercube_desired_peak_channel = np.expand_dims(Hypercube_desired_peak_channel, axis=2)
+        
         plot_out = CLS_to_image(CLS_matrix = Hypercube_desired_peak_channel,
-                            cap = cap, mode = 'opaque',
-                            match_size=False, color=color)
+                                cap = cap, mode = 'opaque',
+                                match_size=False, color=color)
         return(plot_out)
 
     def __init__(self, file_path, min_desired_wavelength, max_desired_wavelength,
@@ -114,3 +118,4 @@ class Hypercube:
 
         self.wavelengths = subset_wavelengths
         self.source = os.path.splitext(ntpath.basename(file_path))[0]
+        self.load_mode = load_mode

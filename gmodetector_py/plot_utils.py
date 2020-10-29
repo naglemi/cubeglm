@@ -38,7 +38,7 @@ def CLS_to_image(CLS_matrix, cap, mode = 'opaque', match_size=False, color='whit
                               cap),
                              (0,
                               255)).astype(int)
-    CLS_matrix_expanded = np.rot90(np.expand_dims(CLS_matrix, axis=2))
+    CLS_matrix_expanded = np.rot90(CLS_matrix)
     if mode == 'opaque':
         empty_channel =  np.zeros((CLS_matrix_expanded.shape[0], CLS_matrix_expanded.shape[1], 1), dtype=np.uint8)
         if color=='white':
