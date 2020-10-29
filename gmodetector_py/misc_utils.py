@@ -22,7 +22,7 @@ def find_desired_indices(wavelengths, min_desired_wavelength, max_desired_wavele
     return: A list of indices corresponding to desired wavelengths
 
     >>> find_desired_indices([1, 2, 3, 4, 5], 1.5, 4.5)
-    [2, 3, 4]
+    (array([1, 2, 3]),)
 
     """
     import numpy as np
