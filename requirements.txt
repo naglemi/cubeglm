@@ -1,5 +1,10 @@
+pytest
+codecov
 numpy
 pandas
-spectral
-rpy2
 matplotlib
+tzlocal
+h5py
+pytables
+rpy2
+spectral
