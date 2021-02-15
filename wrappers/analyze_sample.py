@@ -263,7 +263,7 @@ if __name__ == "__main__":
     green_channel = args.green_channel,
     red_channel = args.red_channel,
     blue_channel = args.blue_channel,
-    green_cap = args.green_channel,
+    green_cap = args.green_cap,
     red_cap = args.red_cap,
     blue_cap = args.blue_cap,
     weight_format = args.weight_format,
