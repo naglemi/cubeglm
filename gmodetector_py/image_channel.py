@@ -29,6 +29,8 @@ class ImageChannel:
             mode = 'hypercube'
             source = hypercube.source
 
+        print("Producing image channel for " + str(desired_component_or_wavelength) + " with cap " + str(cap) " in color " + str(color))
+        
         if mode == 'weights':
             image = weight_array.plot(desired_component = desired_component_or_wavelength,
             color = color, cap = cap)
