@@ -123,6 +123,9 @@ parser.add_argument('--relu' , type = bool, default = True,
                     consistent across images with the same color/cap settings""")
 parser.add_argument('--output_dir', type = str, default = './',
                     help = 'Filepath to directory for saving outputs')
+parser.add_argument('--threshold', type = float, default = 0,
+                    help = """Threshold above which pixels will be counted as
+                    significant in the summary statistic spreadsheet output""")
 
 args = parser.parse_args()
 
@@ -134,7 +137,8 @@ def analyze_sample(file_path,fluorophore_ID_vector,
                    spectral_library_path = './spectral_library/', intercept = 1,
                    spectra_noise_threshold = 0.01, normalize = False, rescale = True,
                    chroma_width = 10, chroma_hypercube = None, chroma_path = None,
-                   relu_before_plot = True, output_dir = './', relu = True):
+                   relu_before_plot = True, output_dir = './', relu = True,
+                   threshold = 0):
     """This function provides a wrapper for analyzing a sample by a
     start-to-finish hyperspectral regression workflow, including plotting
     and saving of weight arrays for each spectral component. At the time of
@@ -213,10 +217,18 @@ def analyze_sample(file_path,fluorophore_ID_vector,
     weight_array = WeightArray(test_matrix=test_matrix,
                                test_cube=test_cube,
                                relu = relu_before_plot)
+    
+    # Subset weight array from after intercept (if exists) until last fluorophore
+    weight_array_sans_intercept = weight_array.weights[:, :, intercept:weight_array.weights.shape[2]]
 
-    weight_array.save(ntpath.basename(weight_array.source),
-                      format = weight_format,
-                      output_dir = output_dir)
+    # Only save weight array if laser is on 
+    if weight_array_sans_intercept.max() > 50:
+        weight_array.save(ntpath.basename(weight_array.source),
+                          format = weight_format,
+                          output_dir = output_dir,
+                          threshold = threshold)
+    if weight_array_sans_intercept.max() <= 50:
+        print("ALERT! The laser did not turn on during imaging of sample " + filepath_sansdir_basename)
 
     if plot == True:
 
@@ -277,6 +289,7 @@ if __name__ == "__main__":
     #chroma_hypercube = None,
     chroma_path = args.chroma_path,
     relu_before_plot = args.relu_before_plot,
-    output_dir = args.output_dir)
+    output_dir = args.output_dir,
+    threshold = args.threshold)
     
     #print(args)
