@@ -44,7 +44,7 @@ class WeightArray:
         self.weights[self.weights < 0] = 0
 
     def save(self, path, index_starting_at_one = True, format = "hdf",
-    output_dir = "./"):
+    output_dir = "./", threshold = 0):
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
@@ -61,6 +61,24 @@ class WeightArray:
             output_path = output_dir + path + '_weights.' + format
             print('Saving to ' + output_path + ' with key of weights')
             self._weights_pseudotriplet.to_hdf(output_path, key = 'weights', format = 'table')
+
+        # Let's also save out summary stats of mean, total and max for each component over whole plate
+        df = pd.DataFrame(columns = ['source', 'component', 'mean_signal', 'max_signal', 'total_signal', "total_signif_pixels"],
+                index = range(len(self.components)))
+        for i in range(len(self.components)):
+            df['source'].iloc[i] = self.source
+            df['component'].iloc[i] = self.components[i]
+            df['mean_signal'].iloc[i] = np.mean(self.weights[:, :, i])
+            df['max_signal'].iloc[i] = np.max(self.weights[:, :, i])
+            if threshold == 0:
+                df['total_signal'].iloc[i] = np.sum(self.weights[:, :, i])
+                df['total_signif_pixels'].iloc[i] = "No significance threshold"
+            if threshold > 0:
+                df['total_signal'].iloc[i] = self.weights[:, :, i][self.weights[:, :, i] > threshold].sum()
+                df['total_signif_pixels'].iloc[i] = (self.weights[:, :, i] > threshold).sum()
+        output_path2 = output_dir + path + '_summary.csv'
+        print('Saving summary stats w/ threshold' + str(threshold) + ' to ' + output_path2)
+        df.to_csv(output_path2)
 
     def plot(self, desired_component, color, cap):
         """Plot a single channel selected from a weight array produced by regression
