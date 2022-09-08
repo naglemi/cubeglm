@@ -8,12 +8,12 @@ To quantify spectral components in our hypercube, we must have a design matrix w
 
 ```
 test_matrix = XMatrix(fluorophore_ID_vector = ['GFP', 'Chl', 'Noise'],
-                  spectral_library_path = spectral_library_path,
-                  intercept = 1,
-                  wavelengths = read_wavelengths(file_path = file_path),
-                  spectra_noise_threshold = 0.01,
-                  min_desired_wavelength = 500,
-                  max_desired_wavelength = 900)
+                      spectral_library_path = spectral_library_path,
+                      intercept = 1,
+                      wavelengths = read_wavelengths(file_path = file_path),
+                      spectra_noise_threshold = 0.01,
+                      min_desired_wavelength = 500,
+                      max_desired_wavelength = 900)
 ```
 Here, `spectral_library_path` should point to the path for the `spectral_library` folder in this GitHub repo, or alternatively your own spectral library with spectra in the same format. `file_path` should point to an ENVI-format `hdr` file that lists wavelengths for a sample hyperspectral image. Assuming the wavelengths for all of your images are the same, it can be any one of these images.
 
