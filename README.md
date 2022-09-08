@@ -12,6 +12,9 @@ This package is not yet available on Conda or PyPi repositories. The GitHub repo
 - Note: To launch R, just type `R` on the command line and press enter. Once you have completed installation and are ready to leave R and return to command line, enter `q()`. When prompted, enter `n` to indicate there is no need to save the workspace.
 7. Install *gmodetector_py* and test dependencies. The below command should be run from inside the *gmodetector_py* directory that is created from step 1 of this section.<br><code>pip install ".[test]"</code>
 
+## Sample data
+We provide two sample hyperspectral images that can be used to test CubeGLM and make sure the package is working properly before running your own data. Since these hyperspectral files are too large for GitHub (~1.4GB each), they can be found on [Google Drive](https://drive.google.com/drive/folders/1v13ynHfrER5e81nbT05mmgc1GaiAev0Z?usp=sharing). This folder also includes example outputs for comparison to ensure test analysis runs properly.
+
 ## Basic use
 
 ### Preparing a design matrix with known spectral components
