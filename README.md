@@ -20,6 +20,11 @@ test_matrix = XMatrix(fluorophore_ID_vector = ['GFP', 'Chl', 'Noise'],
 - `fluorophore_ID_vector` should be a list that matches file prefixes of spectra in this folder. 
 - `file_path` should point to an ENVI-format `hdr` file that lists wavelengths for a sample hyperspectral image. Assuming the wavelengths for all of your images are the same, it can be any one of these images.
 
+### Loading a hypercube
+
+### Computing weights for spectral components
+
+### Producing false color images for visualizing spectral component signals
 
 ## High-throughput deployment
 
