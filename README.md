@@ -15,6 +15,7 @@ test_matrix = XMatrix(fluorophore_ID_vector = ['GFP', 'Chl', 'Noise'],
                       min_desired_wavelength = 500,
                       max_desired_wavelength = 900)
 ```
+- `intercept` can be set to 0 if there is no background signal in your hyperspectral images. To be clear, this means there is not even a faint signal when images are taken with no light source and perfect darkness is expected. If there is background signal, a y-intercept should be included by setting `intercept` to 1 instead of 0.
 - `spectral_library_path` should point to the path for the `spectral_library` folder in this GitHub repo, or alternatively your own spectral library with spectra in the same format. 
 - `fluorophore_ID_vector` should be a list that matches file prefixes of spectra in this folder. 
 - `file_path` should point to an ENVI-format `hdr` file that lists wavelengths for a sample hyperspectral image. Assuming the wavelengths for all of your images are the same, it can be any one of these images.
