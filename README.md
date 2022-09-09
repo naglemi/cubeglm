@@ -93,7 +93,9 @@ stacked_component_image.save(path_prefix = stacked_component_image.source,
 This will save a `png` file for the `FalseColor` image with the same file prefix as the input hypercube, in the user-defined `output_dir`.
 
 ## High-throughput deployment
+In this repository, `analyze_sample.py` is provided in the `wrappers` folder. This provides a high-level Python function, as well as a command line interface, to run over the previously described functions for a given sample.
+
+For details, run `python analyze_sample.py` from the command line to see command-line argument descriptions, or run `help(analyze_sample)` from Python after loading the function.
 
 ## Under the hood
-
-Main Readme and vignettes are forthcoming. Each individual function is documented using `docstring`.
+Details coming soon...
