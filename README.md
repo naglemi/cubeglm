@@ -98,4 +98,4 @@ In this repository, `analyze_sample.py` is provided in the `wrappers` folder. Th
 For details, run `python analyze_sample.py` from the command line to see command-line argument descriptions, or run `help(analyze_sample)` from Python after loading the function.
 
 ## Under the hood
-Details coming soon...
+See the notebook [`Designing_regression.ipynb`](https://github.com/naglemi/gmodetector_py/blob/master/notebooks/Designing_regression.ipynb) for a description of the mathematical approach.
