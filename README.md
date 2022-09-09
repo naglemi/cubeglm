@@ -79,6 +79,7 @@ We can produce false color images representing the intensities of up to three sp
                                                            color = 'blue',
                                                            cap = 200)])
 ```
+
 -`weight_array` can point to an object of class `WeightArray` if you wish to plot spectral component weights. Alternatively, this parameter can be replaced with `hypercube` and pointed to a `Hypercube` object if you wish to plot wavelength intensities.
 -`Desired_component_or_wavelength` can be set to either a string value referring to a known spectral component in the spectral library, or to a numeric value for a given wavelength for which data is collected.
 -`color` must be set to `red`, `green`, or `blue` for a given channel.
