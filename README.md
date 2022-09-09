@@ -99,3 +99,6 @@ For details, run `python analyze_sample.py` from the command line to see command
 
 ## Under the hood
 See the notebook [`Designing_regression.ipynb`](https://github.com/naglemi/gmodetector_py/blob/master/notebooks/Designing_regression.ipynb) for a description of the mathematical approach.
+
+## Acknowledgements
+We thank the National Science Foundation Plant Genome Research Program for support (IOS #1546900, Analysis of genes affecting plant regeneration and transformation in poplar), and members of GREAT TREES Research Cooperative at OSU for its support of the Strauss laboratory.
