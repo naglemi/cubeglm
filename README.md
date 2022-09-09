@@ -66,18 +66,18 @@ When a weight array is saved, two outputs will be produced. The first is the wei
 ### Producing false color images for visualizing spectral component signals
 We can produce false color images representing the intensities of up to three spectral components using the `FalseColor` and `ImageChannel` classes.
 ```
-        stacked_component_image = FalseColor([ImageChannel(weight_array = weight_array,
-                                                           desired_component_or_wavelength = "GFP",
-                                                           color = 'green',
-                                                           cap = 400),
-                                              ImageChannel(weight_array = weight_array,
-                                                           desired_component_or_wavelength = "Chl",
-                                                           color = 'red',
-                                                           cap = 200),
-                                              ImageChannel(weight_array = weight_array,
-                                                           desired_component_or_wavelength = "Diffraction",
-                                                           color = 'blue',
-                                                           cap = 200)])
+stacked_component_image = FalseColor([ImageChannel(weight_array = weight_array,
+                                                   desired_component_or_wavelength = "GFP",
+                                                   color = 'green',
+                                                   cap = 400),
+                                      ImageChannel(weight_array = weight_array,
+                                                   desired_component_or_wavelength = "Chl",
+                                                   color = 'red',
+                                                   cap = 200),
+                                      ImageChannel(weight_array = weight_array,
+                                                   desired_component_or_wavelength = "Diffraction",
+                                                   color = 'blue',
+                                                   cap = 200)])
 ```
 
 - `weight_array` can point to an object of class `WeightArray` if you wish to plot spectral component weights. Alternatively, this parameter can be replaced with `hypercube` and pointed to a `Hypercube` object if you wish to plot wavelength intensities.
