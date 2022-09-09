@@ -35,10 +35,61 @@ test_matrix = XMatrix(fluorophore_ID_vector = ['GFP', 'Chl', 'Noise'],
 - `file_path` should point to an ENVI-format `hdr` file that lists wavelengths for a sample hyperspectral image. Assuming the wavelengths for all of your images are the same, it can be any one of these images. The prefix to the `hdr` file (containing metadata) must match a `raw` file (containing the hypercube itself) in the same folder.
 
 ### Loading a hypercube
+```
+test_cube = Hypercube(file_path,
+                      min_desired_wavelength = min_desired_wavelength,
+                      max_desired_wavelength = max_desired_wavelength)
+```
+- See under "Preparing a design matrix..." for the description of `file_path`. When creating an object of `Hypercube` class, it should point to the `hdr` file for the desired hyperspectral image.
 
 ### Computing weights for spectral components
+```
+weight_array = WeightArray(test_matrix=test_matrix,
+                           test_cube=test_cube,
+                           relu = relu_before_plot)
+```
+- `test_matrix` and `test_cube` should point to objects of `XMatrix` and `Hypercube` classes, produced as described in the previos two steps.
+- `relu_before_plot` can be set to `True` (recommended for standard use) or `False`. If `True`, negative weights will be replaced with zero. This helps us make sure the scales for false color are consistent across images with the same settings (as described below).
+
+To save a `weight_array` object for downstream analysis with other tools, we can use the `save` method for the `WeightArray` class as follows:
+weight_array.save(path = output_file_name_prefix,
+                  format = weight_format,
+                  output_dir = output_dir,
+                  threshold = threshold)
+
+- `path` points to where the file will be saved. If you wish for the path to match the file preix of the imported hypercube, this can be set to `ntpath.basename(weight_array.source`. Note, `ntpath` must first be imported (`import ntpath`).
+- `format` can be set to either `csv` or `hdf` (the latter for faster loading in downstream analysis with other tools).
+- `threshold` refers to a significance threshold. Above this threshold, all cumulative signal will be counted to produce summary statistics. The units are arbitrary and depend on a given hyperspectral camera. In our research, we set this to 38 because this represents above which significant GFP or DsRed reporter protein signal can be clearly distinguished from background noise. This only affects the `_summary.csv` files discussed below.
+
+When a weight array is saved, two outputs will be produced. The first is the weight array itself, which can be analyzed with downstream tools such as in our [GMOdetector workflow](https://github.com/naglemi/gmodetector_py/) to study plant transformation. The second output is a `_summary.csv` file that contains the cumulative signals for each fluorescent component (with thresholding according to the aforementioned `threshold` parameter). This latter file can be used for statistical analysis in other workflows that do not involve further examination of the weight array itself.
 
 ### Producing false color images for visualizing spectral component signals
+We can produce false color images representing the intensities of up to three spectral components using the `FalseColor` and `ImageChannel` classes.
+```
+        stacked_component_image = FalseColor([ImageChannel(weight_array = weight_array,
+                                                           desired_component_or_wavelength = "GFP",
+                                                           color = 'green',
+                                                           cap = 400),
+                                              ImageChannel(weight_array = weight_array,
+                                                           desired_component_or_wavelength = "Chl",
+                                                           color = 'red',
+                                                           cap = 200),
+                                              ImageChannel(weight_array = weight_array,
+                                                           desired_component_or_wavelength = "Diffraction",
+                                                           color = 'blue',
+                                                           cap = 200)])
+```
+-`weight_array` can point to an object of class `WeightArray` if you wish to plot spectral component weights. Alternatively, this parameter can be replaced with `hypercube` and pointed to a `Hypercube` object if you wish to plot wavelength intensities.
+-`Desired_component_or_wavelength` can be set to either a string value referring to a known spectral component in the spectral library, or to a numeric value for a given wavelength for which data is collected.
+-`color` must be set to `red`, `green`, or `blue` for a given channel.
+-`cap` indicates an upper limit of signal for each of these component. Any signal at or above these values will appear with maximum brightness; thus, these variables are comparable to exposure on an RGB camera. If caps are too high, not much signal at lower ranges will be seen. If cap for a given component is too low, the false color images will appear overexposed with respect to the component.
+
+Saving false color images:
+```
+stacked_component_image.save(path_prefix = stacked_component_image.source,
+                             output_dir = output_dir)
+```
+This will save a `png` file for the `FalseColor` image with the same file prefix as the input hypercube, in the user-defined `output_dir`.
 
 ## High-throughput deployment
 
