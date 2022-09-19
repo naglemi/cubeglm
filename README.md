@@ -37,8 +37,8 @@ test_matrix = XMatrix(fluorophore_ID_vector = ['GFP', 'Chl', 'Noise'],
 ### Loading a hypercube
 ```
 test_cube = Hypercube(file_path,
-                      min_desired_wavelength = min_desired_wavelength,
-                      max_desired_wavelength = max_desired_wavelength)
+                      min_desired_wavelength = 500,
+                      max_desired_wavelength = 900)
 ```
 - See under "Preparing a design matrix..." for the description of `file_path`. When creating an object of `Hypercube` class, it should point to the `hdr` file for the desired hyperspectral image.
 
@@ -75,7 +75,7 @@ stacked_component_image = FalseColor([ImageChannel(weight_array = weight_array,
                                                    color = 'red',
                                                    cap = 200),
                                       ImageChannel(weight_array = weight_array,
-                                                   desired_component_or_wavelength = "Diffraction",
+                                                   desired_component_or_wavelength = "Noise",
                                                    color = 'blue',
                                                    cap = 200)])
 ```
