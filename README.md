@@ -20,7 +20,7 @@ We provide two sample hyperspectral images that can be used to test CubeGLM and 
 ### Preparing a design matrix with known spectral components
 To quantify spectral components in our hypercube, we must have a design matrix with columns representing the spectra of each known component. This can be prepared using the `XMatrix` class.
 
-```
+``` python
 test_matrix = XMatrix(fluorophore_ID_vector = ['GFP', 'Chl', 'Noise'],
                       spectral_library_path = spectral_library_path,
                       intercept = 1,
@@ -35,7 +35,7 @@ test_matrix = XMatrix(fluorophore_ID_vector = ['GFP', 'Chl', 'Noise'],
 - `file_path` should point to an ENVI-format `hdr` file that lists wavelengths for a sample hyperspectral image. Assuming the wavelengths for all of your images are the same, it can be any one of these images. The prefix to the `hdr` file (containing metadata) must match a `raw` file (containing the hypercube itself) in the same folder.
 
 ### Loading a hypercube
-```
+``` python
 test_cube = Hypercube(file_path,
                       min_desired_wavelength = 500,
                       max_desired_wavelength = 900)
@@ -43,7 +43,7 @@ test_cube = Hypercube(file_path,
 - See under "Preparing a design matrix..." for the description of `file_path`. When creating an object of `Hypercube` class, it should point to the `hdr` file for the desired hyperspectral image.
 
 ### Computing weights for spectral components
-```
+``` python
 weight_array = WeightArray(test_matrix=test_matrix,
                            test_cube=test_cube,
                            relu = relu_before_plot)
@@ -65,7 +65,7 @@ When a weight array is saved, two outputs will be produced. The first is the wei
 
 ### Producing false color images for visualizing spectral component signals
 We can produce false color images representing the intensities of up to three spectral components using the `FalseColor` and `ImageChannel` classes.
-```
+``` python
 stacked_component_image = FalseColor([ImageChannel(weight_array = weight_array,
                                                    desired_component_or_wavelength = "GFP",
                                                    color = 'green',
@@ -86,7 +86,7 @@ stacked_component_image = FalseColor([ImageChannel(weight_array = weight_array,
 - `cap` indicates an upper limit of signal for each of these component. Any signal at or above these values will appear with maximum brightness; thus, these variables are comparable to exposure on an RGB camera. If caps are too high, not much signal at lower ranges will be seen. If cap for a given component is too low, the false color images will appear overexposed with respect to the component.
 
 Saving false color images:
-```
+``` python
 stacked_component_image.save(path_prefix = stacked_component_image.source,
                              output_dir = output_dir)
 ```
