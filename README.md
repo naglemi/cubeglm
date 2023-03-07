@@ -57,7 +57,7 @@ weight_array.save(path = output_file_name_prefix,
                   output_dir = output_dir,
                   threshold = threshold)
 
-- `path` points to where the file will be saved. If you wish for the path to match the file preix of the imported hypercube, this can be set to `ntpath.basename(weight_array.source`. Note, `ntpath` must first be imported (`import ntpath`).
+- `path` points to where the file will be saved. If you wish for the path to match the file preix of the imported hypercube, this can be set to `ntpath.basename(weight_array.source)`. Note, `ntpath` must first be imported (`import ntpath`).
 - `format` can be set to either `csv` or `hdf` (the latter for faster loading in downstream analysis with other tools).
 - `threshold` refers to a significance threshold. Above this threshold, all cumulative signal will be counted to produce summary statistics. The units are arbitrary and depend on a given hyperspectral camera. In our research, we set this to 38 because this represents above which significant GFP or DsRed reporter protein signal can be clearly distinguished from background noise. This only affects the `_summary.csv` files discussed below.
 
