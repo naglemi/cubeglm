@@ -1,7 +1,12 @@
 language: python
 python:
  - 3.7.4
-#before_install:
+
+addons:
+  apt:
+    packages:
+      - libffi-dev
+      
 install:
   # Thanks to The Unfun Cat for explaining how to set up .travis.yml with both R and Python using conda
   # https://stackoverflow.com/questions/44317627/installing-both-python-and-r-for-a-travis-build
