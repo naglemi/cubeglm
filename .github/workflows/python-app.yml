@@ -11,10 +11,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.7.4
+    - name: Set up Python 3.7
       uses: actions/setup-python@v2
       with:
-        python-version: 3.7.4
+        python-version: 3.7
+    
 
     - name: Set up Conda and Install Dependencies
       run: |
@@ -27,7 +28,7 @@ jobs:
         conda config --add channels bioconda
         conda config --add channels r
         conda info -a
-        conda create -q -n test-environment python=3.7.4 pytest codecov numpy pandas matplotlib tzlocal h5py pytables libffi
+        conda create -q -n test-environment python=3.7 pytest codecov numpy pandas matplotlib tzlocal h5py pytables libffi
         source activate test-environment
         conda install -c conda-forge rpy2
         pip install spectral
