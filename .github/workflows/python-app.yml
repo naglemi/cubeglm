@@ -4,31 +4,23 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.7.4
-      uses: actions/setup-python@v2
+    - name: Set up Miniconda and Environment
+      uses: conda-incubator/setup-miniconda@v2
       with:
+        activate-environment: test-environment
+        environment-file: environment.yml
         python-version: 3.7.4
+        auto-activate-base: false
+        channels: bioconda,r,conda-forge
 
-    - name: Set up Conda and Install Dependencies
+    - name: Additional Environment Setup
       run: |
-        wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-        bash miniconda.sh -b -p $HOME/miniconda
-        export PATH="$HOME/miniconda/bin:$PATH"
-        hash -r
-        conda config --set always_yes yes --set changeps1 no
-        conda update -q conda
-        conda config --add channels bioconda
-        conda config --add channels r
-        conda info -a
-        conda create -q -n test-environment python=3.7.4 pytest codecov numpy pandas matplotlib tzlocal h5py pytables libffi
-        source activate test-environment
         conda install -c conda-forge rpy2
         pip install spectral
         echo "install.packages('scales', repos = 'http://cran.us.r-project.org')" > R_scales_install.R
@@ -37,9 +29,7 @@ jobs:
         pip install ".[test]" .
 
     - name: Test with pytest
-      run: |
-        source activate test-environment
-        pytest
+      run: pytest
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
