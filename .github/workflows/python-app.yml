@@ -10,24 +10,24 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Conda, Install Dependencies, and Run Tests
+    - name: Set up Python and Conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        python-version: 3.7.4
+        channels: bioconda,r
+        auto-activate-base: false
+
+    - name: Create and Activate Conda Environment
+      shell: bash -l {0}
       run: |
-        wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-        bash miniconda.sh -b -p $HOME/miniconda
-        echo "$HOME/miniconda/bin" >> $GITHUB_PATH  # Add conda to PATH
+        env_path=$GITHUB_WORKSPACE/env
+        conda create --prefix $env_path python=3.7.4 pytest codecov numpy pandas matplotlib tzlocal h5py pytables libffi
+        echo "$env_path/bin" >> $GITHUB_PATH
 
-        conda config --set always_yes yes --set changeps1 no
-        conda update -q conda
-        conda config --add channels bioconda
-        conda config --add channels r
-        conda info -a
-
-        # Create and activate environment
-        conda create -q -n test-environment python=3.7.4 pytest codecov numpy pandas matplotlib tzlocal h5py pytables libffi
-        source $HOME/miniconda/etc/profile.d/conda.sh
-        conda activate test-environment
-
-        # Additional installations inside the environment
+    - name: Install Additional Dependencies
+      shell: bash -l {0}
+      run: |
+        conda activate $GITHUB_WORKSPACE/env
         conda install -c conda-forge rpy2
         pip install spectral
         echo "install.packages('scales', repos = 'http://cran.us.r-project.org')" > R_scales_install.R
@@ -35,7 +35,10 @@ jobs:
         Rscript R_scales_install.R
         pip install ".[test]" .
 
-        # Run tests inside the environment
+    - name: Run Tests
+      shell: bash -l {0}
+      run: |
+        conda activate $GITHUB_WORKSPACE/env
         pytest
 
     - name: Upload coverage to Codecov
