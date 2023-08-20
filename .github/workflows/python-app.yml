@@ -31,9 +31,13 @@ jobs:
         Rscript R_scales_install.R
         pip install ".[test]" .
 
+    - name: Activate Conda Environment
+      run: |
+        source $CONDA/bin/activate
+        conda activate test-environment
+
     - name: Test with pytest
       run: |
-        source activate test-environment
         pytest
 
     - name: Upload coverage to Codecov

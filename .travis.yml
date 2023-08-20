@@ -1,4 +1,7 @@
 language: python
+dist: focal  # Use Ubuntu 20.04 LTS
+python:
+  - "3.x"  # Use latest 3.x version of Python
 
 addons:
   apt:
@@ -6,7 +9,7 @@ addons:
       - libffi-dev
 
 install:
-  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+  - wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;  # Updated URL
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
@@ -22,6 +25,8 @@ install:
   - chmod ugo+rwx R_scales_install.R
   - Rscript R_scales_install.R
   - pip install ".[test]" . # install package + test dependencies
+
 script: pytest
+
 after_success:
   - codecov # submit coverage
