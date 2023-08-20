@@ -1,7 +1,7 @@
 language: python
 dist: focal  # Use Ubuntu 20.04 LTS
 python:
-  - "3.x"  # Use latest 3.x version of Python
+  - "3.9"
 
 addons:
   apt:
