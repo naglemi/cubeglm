@@ -1,0 +1,17 @@
+name: test-environment
+channels:
+  - bioconda
+  - r
+  - conda-forge
+dependencies:
+  - python=3.7.4
+  - pytest
+  - codecov
+  - numpy
+  - pandas
+  - matplotlib
+  - tzlocal
+  - h5py
+  - pytables
+  - libffi
+  - rpy2
