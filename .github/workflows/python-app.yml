@@ -10,36 +10,25 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install system dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libffi-dev
-
-    # Add this step to update the library path
-    - name: Update Library Path
-      run: |
-        echo "/usr/local/lib" | sudo tee -a /etc/ld.so.conf.d/libffi.conf
-        sudo ldconfig
-
     - name: Set up Python and Conda
       uses: conda-incubator/setup-miniconda@v2
       with:
         python-version: 3.7.4
-        channels: bioconda,r
+        channels: conda-forge,bioconda,r
         auto-activate-base: false
 
     - name: Create and Activate Conda Environment
       shell: bash -l {0}
       run: |
         env_path=$GITHUB_WORKSPACE/env
-        conda create --prefix $env_path python=3.7.4 pytest codecov numpy pandas matplotlib tzlocal h5py pytables
+        conda create --prefix $env_path python=3.7.4 pytest codecov numpy pandas matplotlib tzlocal h5py pytables libffi=3.3
         echo "$env_path/bin" >> $GITHUB_PATH
 
     - name: Install Additional Dependencies
       shell: bash -l {0}
       run: |
         conda activate $GITHUB_WORKSPACE/env
-        conda install -c conda-forge rpy2
+        conda install rpy2
         pip install spectral
         echo "install.packages('scales', repos = 'http://cran.us.r-project.org')" > R_scales_install.R
         chmod ugo+rwx R_scales_install.R
