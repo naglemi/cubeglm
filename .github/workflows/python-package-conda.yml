@@ -24,27 +24,35 @@ jobs:
       run: |
         env_path=$GITHUB_WORKSPACE/env
         conda create --prefix $env_path python=3.9
-        echo "$env_path/bin" >> $GITHUB_PATH
+        conda activate $env_path
 
     - name: Install dependencies from environment.yml
       shell: bash -l {0}
       run: |
         conda env update --file environment.yml --name base
 
+    - name: Install the package
+      shell: bash -l {0}
+      run: |
+        conda activate $GITHUB_WORKSPACE/env
+        pip install -e .  # Install in editable mode
+
     - name: Test with pytest
       shell: bash -l {0}
       run: |
-        conda install pytest
-        pytest
+        conda activate $GITHUB_WORKSPACE/env
+        pytest tests/  # Specify the path to your tests
 
     - name: Build Conda package
       shell: bash -l {0}
       run: |
+        conda activate $GITHUB_WORKSPACE/env
         conda install conda-build
         conda build .
 
     - name: Publish to Anaconda
       shell: bash -l {0}
       run: |
+        conda activate $GITHUB_WORKSPACE/env
         conda install anaconda-client
         anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload $GITHUB_WORKSPACE/env/conda-bld/linux-64/*.tar.bz2
