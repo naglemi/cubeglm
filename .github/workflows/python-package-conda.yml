@@ -15,7 +15,7 @@ jobs:
     - name: Set up Python and Conda
       uses: conda-incubator/setup-miniconda@v2
       with:
-        python-version: 3.10
+        python-version: 3.9
         channels: conda-forge,bioconda,r
         auto-activate-base: true
 
@@ -23,7 +23,7 @@ jobs:
       shell: bash -l {0}
       run: |
         env_path=$GITHUB_WORKSPACE/env
-        conda create --prefix $env_path python=3.10
+        conda create --prefix $env_path python=3.9
         echo "$env_path/bin" >> $GITHUB_PATH
 
     - name: Install dependencies from environment.yml
