@@ -2,12 +2,19 @@
 CubeGLM is a Python package for analyzing fluorescent hyperspectral images. Key features include the abilities to quantify known spectral components (e.g. GFP and chlorophyll, in the context of plant biology) in each pixel of hyperspectral images (A.K.A. hypercubes) as well as producing false color images to allow visualization of each component's concentration in each pixel. This package was developed for use in the [GMOdetector workflow](https://github.com/naglemi/gmodetector_py/) to study plant transformation; however, it can be used to analyze any hyperspectral images in which the number of spectral components is low enough for them to be quantified by regression without high levels of noise.
 
 ## Installation
-This package is not yet available on Conda or PyPi repositories. The GitHub repo can be cloned and the package can be installed as follows:
+
+### Conda (recomennded)
+``` bash
+conda install -c "naglemi" cubeglm
+```
+
+### Manual installation
+
 1. Install a GitHub interface ([command line](https://cli.github.com/) or [graphical](https://desktop.github.com/) and clone this repository (e.g. `git clone https://github.com/naglemi/gmodetector_py.git` if using the command line.
 2. (Recommended): Install [Anaconda or Miniconda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html#regular-installation) to support installation of dependencies without conflicts.
 3. Create an environment that already has most dependencies using this command: <br><code>conda create -y -c conda-forge -n test-environment python=3.7.4 pytest codecov numpy pandas matplotlib tzlocal h5py pytables rpy2 parallel</code>
-4. Activate the new conda environment<br><code>conda activate test-environment`</code>
-5. Install *Spectral Python* from the *pypi* repository<br><code>pip install spectral`</code>
+4. Activate the new conda environment<br><code>conda activate test-environment</code>
+5. Install *Spectral Python* from the *pypi* repository<br><code>pip install spectral</code>
 6. Launch R and install *scales* from the R console via:<br><code>install.packages('scales', repos = 'http://cran.us.r-project.org')</code>
 - Note: To launch R, just type `R` on the command line and press enter. Once you have completed installation and are ready to leave R and return to command line, enter `q()`. When prompted, enter `n` to indicate there is no need to save the workspace.
 7. Install *gmodetector_py* and test dependencies. The below command should be run from inside the *gmodetector_py* directory that is created from step 1 of this section.<br><code>pip install ".[test]"</code>
