@@ -10,6 +10,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libffi-dev
+
+    # Add this step to update the library path
+    - name: Update Library Path
+      run: |
+        echo "/usr/local/lib" | sudo tee -a /etc/ld.so.conf.d/libffi.conf
+        sudo ldconfig
+
     - name: Set up Python and Conda
       uses: conda-incubator/setup-miniconda@v2
       with:
@@ -23,11 +34,6 @@ jobs:
         env_path=$GITHUB_WORKSPACE/env
         conda create --prefix $env_path python=3.7.4 pytest codecov numpy pandas matplotlib tzlocal h5py pytables
         echo "$env_path/bin" >> $GITHUB_PATH
-
-    - name: Install system dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libffi-dev
 
     - name: Install Additional Dependencies
       shell: bash -l {0}
