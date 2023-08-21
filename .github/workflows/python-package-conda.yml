@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 5
+    defaults:
+      run:
+        shell: bash -l {0}  # Use the same shell throughout
 
     steps:
     - name: Checkout repository
@@ -20,38 +23,37 @@ jobs:
         auto-activate-base: true
 
     - name: Create and Activate Conda Environment
-      shell: bash -l {0}
       run: |
         env_path=$GITHUB_WORKSPACE/env
         conda create --prefix $env_path python=3.9
         conda activate $env_path
 
     - name: Install dependencies from environment.yml
-      shell: bash -l {0}
       run: |
         conda env update --file environment.yml --name base
 
+    - name: Install pytest
+      run: |
+        conda activate $GITHUB_WORKSPACE/env
+        conda install pytest
+
     - name: Install the package
-      shell: bash -l {0}
       run: |
         conda activate $GITHUB_WORKSPACE/env
         pip install -e .  # Install in editable mode
 
     - name: Test with pytest
-      shell: bash -l {0}
       run: |
         conda activate $GITHUB_WORKSPACE/env
         pytest tests/  # Specify the path to your tests
 
     - name: Build Conda package
-      shell: bash -l {0}
       run: |
         conda activate $GITHUB_WORKSPACE/env
         conda install conda-build
         conda build .
 
     - name: Publish to Anaconda
-      shell: bash -l {0}
       run: |
         conda activate $GITHUB_WORKSPACE/env
         conda install anaconda-client
