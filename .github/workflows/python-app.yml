@@ -27,7 +27,7 @@ jobs:
       shell: bash -l {0}
       run: |
         env_path=$GITHUB_WORKSPACE/env
-        conda create --prefix $env_path python=9 pytest codecov numpy pandas matplotlib tzlocal h5py pytables
+        conda create --prefix $env_path python=3.9 pytest codecov numpy pandas matplotlib tzlocal h5py pytables
         echo "$env_path/bin" >> $GITHUB_PATH
 
     - name: Install Additional Dependencies
