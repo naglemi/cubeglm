@@ -39,7 +39,7 @@ jobs:
       shell: bash -l {0}
       run: |
         conda activate $GITHUB_WORKSPACE/env
-        pytest
+        pytest --ignore=$GITHUB_WORKSPACE/env/lib/python3.7/site-packages/matplotlib/
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
