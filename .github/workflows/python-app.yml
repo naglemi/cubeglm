@@ -21,8 +21,13 @@ jobs:
       shell: bash -l {0}
       run: |
         env_path=$GITHUB_WORKSPACE/env
-        conda create --prefix $env_path python=3.7.4 pytest codecov numpy pandas matplotlib tzlocal h5py pytables libffi
+        conda create --prefix $env_path python=3.7.4 pytest codecov numpy pandas matplotlib tzlocal h5py pytables
         echo "$env_path/bin" >> $GITHUB_PATH
+
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libffi-dev
 
     - name: Install Additional Dependencies
       shell: bash -l {0}
