@@ -26,6 +26,7 @@ jobs:
       run: |
         env_path=$GITHUB_WORKSPACE/env
         conda create --prefix $env_path python=3.9
+        echo "$env_path/bin" >> $GITHUB_PATH
         conda activate $env_path
 
     - name: Install dependencies from environment.yml
