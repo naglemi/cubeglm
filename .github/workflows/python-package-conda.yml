@@ -3,17 +3,19 @@ name: Python CI with Conda and Anaconda Package Publishing
 on: [push]
 
 jobs:
-  build-linux:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 5
-    defaults:
-      run:
-        shell: bash -l {0}  # Use the same shell throughout
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+
+    - name: Set up Python and Conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        python-version: 3.9
+        channels: bioconda,r
+        auto-activate-base: false
 
     - name: Install system dependencies
       run: |
