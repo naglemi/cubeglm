@@ -32,10 +32,14 @@ jobs:
       run: |
         conda env update --file environment.yml --name base
 
-#    - name: Install R package scales
-#      run: |
-#        conda activate $GITHUB_WORKSPACE/env
-#        Rscript -e 'install.packages("scales", repos = "https://cloud.r-project.org/")'
+    - name: Install R package scales
+      shell: bash -l {0}
+      run: |
+        conda activate $GITHUB_WORKSPACE/env
+        echo "install.packages('scales', repos = 'http://cran.us.r-project.org')" > R_scales_install.R
+        chmod ugo+rwx R_scales_install.R
+        Rscript R_scales_install.R
+        pip install ".[test]" .
 
     - name: Install pytest
       run: |
