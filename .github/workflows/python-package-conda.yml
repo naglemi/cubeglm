@@ -49,6 +49,7 @@ jobs:
         
     - name: Build Conda package
       run: |
+        conda init bash
         conda activate $GITHUB_WORKSPACE/env
         conda install conda-build
         conda build .
