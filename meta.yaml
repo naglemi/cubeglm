@@ -1,0 +1,44 @@
+package:
+  name: gmodetector_py
+  version: 0.63.1  # Replace with your package's version
+
+source:
+  path: .  # Assuming the source is in the current directory
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"  # Standard install command. Modify if needed.
+
+requirements:
+  build:
+    - python
+    - pip
+  host:
+    - python
+  run:
+    - python
+    - pytest
+    - codecov
+    - numpy
+    - pandas
+    - matplotlib
+    - tzlocal
+    - h5py
+    - pytables
+    - libffi
+    - rpy2
+    - r-scales
+
+test:
+  imports:
+    - gmodetector_py  # Adjust if the main module has a different name
+
+about:
+  home: https://github.com/naglemi/gmodetector_py 
+  license: BSD-3
+  license_file: LICENSE 
+  summary: Python CPU implementation of GLM for quantifying fluorophores in fluorescent hyperspectral images
+
+extra:
+  recipe-maintainers:
+    - naglemi
