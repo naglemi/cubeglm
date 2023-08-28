@@ -48,13 +48,14 @@ jobs:
         pytest --ignore=$GITHUB_WORKSPACE/env/
         
     - name: Build Conda package
+      shell: bash -l {0}
       run: |
-        conda init bash
         conda activate $GITHUB_WORKSPACE/env
         conda install conda-build
         conda build .
 
     - name: Publish to Anaconda
+      shell: bash -l {0}
       run: |
         conda activate $GITHUB_WORKSPACE/env
         conda install anaconda-client
