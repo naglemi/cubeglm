@@ -1,13 +1,13 @@
 package:
   name: gmodetector_py
-  version: 0.63.1  # Replace with your package's version
+  version: 0.63.1
 
 source:
-  path: .  # Assuming the source is in the current directory
+  path: .
 
 build:
   number: 0
-  script: "{{ PYTHON }} -m pip install . --no-deps -vv"  # Standard install command. Modify if needed.
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
   build:
@@ -16,7 +16,7 @@ requirements:
   host:
     - python
   run:
-    - python
+    - python 3.9.*
     - pytest
     - codecov
     - numpy
@@ -31,7 +31,7 @@ requirements:
 
 test:
   imports:
-    - gmodetector_py  # Adjust if the main module has a different name
+    - gmodetector_py
 
 about:
   home: https://github.com/naglemi/gmodetector_py 
