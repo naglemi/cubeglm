@@ -16,7 +16,7 @@ requirements:
   host:
     - python
   run:
-    - python 3.9.*
+    - python >=3.9,<3.10
     - pytest
     - codecov
     - numpy
