@@ -14,7 +14,7 @@ jobs:
       uses: conda-incubator/setup-miniconda@v2
       with:
         python-version: 3.9
-        channels: bioconda,r
+        channels: conda-forge,bioconda,r
         auto-activate-base: false
 
     - name: Install system dependencies
