@@ -102,7 +102,7 @@ class WeightArray:
 
     def __init__(self, test_matrix, test_cube, relu = False):
 
-        if test_matrix.wavelengths.astype(np.float).all() != test_cube.wavelengths.astype(np.float).all():
+        if test_matrix.wavelengths.astype(float).all() != test_cube.wavelengths.astype(float).all():
             raise Exception("Design matrix and hypercube do not have the same ``wavelengths`` attribute. Make sure to set the same ``min_desired_wavelength`` and ``max_desired_wavelength`` when creating both objects.")
 
         self.wavelengths = test_matrix.wavelengths
