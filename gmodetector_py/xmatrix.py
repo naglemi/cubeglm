@@ -29,7 +29,7 @@ class XMatrix:
     #def _nan_to_zero(self):
     #    return(np.nan_to_num(self.matrix))
 
-    def _plot(self, tick_step = np.int(50)):
+    def _plot(self, tick_step = int(50):
         import matplotlib.pyplot as plt
         import pandas as pd
         # style
