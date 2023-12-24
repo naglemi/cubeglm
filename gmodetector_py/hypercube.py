@@ -85,7 +85,7 @@ class Hypercube:
                  load_mode = 'load_full_then_crop',
                  use_memmap_for_read_bands = False):
         #print('Value of `use_memmap` inside `__init__` of `Hypercube` is False')
-        print('load mode is' + load_mode)
+        #print('load mode is' + load_mode)
         # Define attribute with contents of the value param
         all_wavelengths = read_wavelengths(file_path)
         subset_indices = find_desired_indices(all_wavelengths, min_desired_wavelength, max_desired_wavelength)
